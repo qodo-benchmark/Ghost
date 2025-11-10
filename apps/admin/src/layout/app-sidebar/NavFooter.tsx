@@ -5,8 +5,7 @@ import {
     SidebarFooter,
     SidebarGroup,
     SidebarGroupContent,
-    SidebarMenu,
-    SidebarMenuItem
+    SidebarMenu
 } from "@tryghost/shade"
 import UserMenu from "./UserMenu";
 import { NavMenuItem } from "./NavMenuItem";

