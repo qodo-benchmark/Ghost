@@ -28,6 +28,7 @@ function NavFooter({ ...props }: React.ComponentProps<typeof SidebarFooter>) {
                             <NavMenuItem.Link
                                 href="https://ghost.org/help?utm_source=admin&utm_campaign=help"
                                 target="_blank"
+                                rel="noopener"
                             >
                                 <LucideIcon.HelpCircle />
                                 <NavMenuItem.Label>Help</NavMenuItem.Label>

