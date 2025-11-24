@@ -1,6 +1,5 @@
 import Docker from 'dockerode';
 import baseDebug from '@tryghost/debug';
-import logging from '@tryghost/logging';
 import {DOCKER_COMPOSE_CONFIG, GHOST_DEFAULTS, MAILPIT, MYSQL, PORTAL, TINYBIRD} from '../constants';
 import {DockerCompose} from '../docker-compose';
 import {TinybirdManager} from './tinybird-manager';
@@ -113,7 +112,7 @@ export class GhostManager {
             debug('Ghost container started:', container.id);
             return container;
         } catch (error) {
-            logging.error('Failed to create Ghost container:', error);
+            console.error('Failed to create Ghost container:', error);
             throw new Error(`Failed to create Ghost container: ${error}`);
         }
     }
@@ -156,7 +155,7 @@ export class GhostManager {
             debug('All Ghost containers removed');
         } catch (error) {
             // Don't throw - we want to continue with setup even if cleanup fails
-            logging.error('Failed to remove all Ghost containers:', error);
+            console.error('Failed to remove all Ghost containers:', error);
         }
     }
 
