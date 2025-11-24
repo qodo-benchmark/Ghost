@@ -5,6 +5,7 @@
  * @typedef {object} Email
  * @typedef {object} LimitService
  * @typedef {{checkVerificationRequired(): Promise<boolean>}} VerificationTrigger
+ * @typedef {import ('./DomainWarmingService').DomainWarmingService} DomainWarmingService
  */
 
 const BatchSendingService = require('./BatchSendingService');
@@ -33,6 +34,7 @@ class EmailService {
     #membersRepository;
     #verificationTrigger;
     #emailAnalyticsJobs;
+    #domainWarmingService;
 
     /**
      *
@@ -48,6 +50,7 @@ class EmailService {
      * @param {object} dependencies.membersRepository
      * @param {VerificationTrigger} dependencies.verificationTrigger
      * @param {object} dependencies.emailAnalyticsJobs
+     * @param {DomainWarmingService} dependencies.domainWarmingService
      */
     constructor({
         batchSendingService,
@@ -59,7 +62,8 @@ class EmailService {
         limitService,
         membersRepository,
         verificationTrigger,
-        emailAnalyticsJobs
+        emailAnalyticsJobs,
+        domainWarmingService
     }) {
         this.#batchSendingService = batchSendingService;
         this.#models = models;
@@ -71,6 +75,7 @@ class EmailService {
         this.#sendingService = sendingService;
         this.#verificationTrigger = verificationTrigger;
         this.#emailAnalyticsJobs = emailAnalyticsJobs;
+        this.#domainWarmingService = domainWarmingService;
     }
 
     /**
@@ -119,6 +124,11 @@ class EmailService {
 
         const emailRecipientFilter = post.get('email_recipient_filter');
         const emailCount = await this.#emailSegmenter.getMembersCount(newsletter, emailRecipientFilter);
+
+        const csdEmailCount = this.#domainWarmingService.isEnabled()
+            ? await this.#domainWarmingService.getWarmupLimit(emailCount)
+            : undefined; // Undefined here means domain warming was not used -- distinct from 0
+
         await this.checkLimits(emailCount);
 
         const email = await this.#models.Email.add({
@@ -134,6 +144,7 @@ class EmailService {
             from: this.#emailRenderer.getFromAddress(post, newsletter),
             replyTo: this.#emailRenderer.getReplyToAddress(post, newsletter),
             email_count: emailCount,
+            csd_email_count: csdEmailCount,
             source: post.get('lexical') || post.get('mobiledoc'),
             source_type: post.get('lexical') ? 'lexical' : 'mobiledoc'
         });
@@ -156,6 +167,7 @@ class EmailService {
 
         return email;
     }
+
     async retryEmail(email) {
         // Block accidentaly retrying non-published posts (can happen due to bugs in frontend)
         const post = await email.getLazyRelation('post');
