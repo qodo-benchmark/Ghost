@@ -1,4 +1,8 @@
 import path from 'path';
+import {fileURLToPath} from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const CONFIG_DIR = path.resolve(__dirname, '../../data/state');
 
@@ -35,4 +39,6 @@ export const PORTAL = {
 export const MAILPIT = {
     PORT: 1025
 };
+
+export const TINYBIRD_API_KEY = 'p.eyJ1IjogIjEyMzQ1Njc4LTkwYWItY2RlZi0xMjM0LTU2Nzg5MGFiY2RlZiIsICJpZCI6ICI5ODc2NTQzMi0xMGFiLWNkZWYtMTIzNC01Njc4OTBhYmNkZWYifQ.sK4xZ9y8Bq3vN1mR7jP5tL2wF6eA8cD4bX0oY9uT3jI';
 
