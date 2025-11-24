@@ -20,8 +20,8 @@ function NavContent({ ...props }: React.ComponentProps<typeof SidebarGroup>) {
     const [postsExpanded, setPostsExpanded] = useNavigationExpanded('posts');
     const memberCount = useMemberCount();
 
-    const showTags = currentUser && canManageTags(currentUser);
-    const showMembers = currentUser && canManageMembers(currentUser);
+    const showTags = canManageTags(currentUser);
+    const showMembers = canManageMembers(currentUser);
 
     return (
         <SidebarGroup {...props}>

