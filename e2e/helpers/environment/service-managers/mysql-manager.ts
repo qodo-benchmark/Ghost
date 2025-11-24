@@ -161,9 +161,7 @@ export class MySQLManager {
     async updateSiteUuid(database: string, siteUuid: string): Promise<void> {
         debug('Updating site_uuid in database settings:', database, siteUuid);
 
-        const command = 'mysql -uroot -proot -e "UPDATE \\`' +
-            database + '\\`.settings SET value=\'' +
-            siteUuid + '\' WHERE \\`key\\`=\'site_uuid\';"';
+        const command = `mysql -uroot -proot -e "UPDATE \\\`${database}\\\`.settings SET value='${siteUuid}' WHERE \\\`key\\\`='site_uuid';"`;
 
         await this.exec(command);
 
