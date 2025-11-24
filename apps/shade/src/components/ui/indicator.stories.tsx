@@ -177,7 +177,7 @@ export const AllStates: Story = {
                 </div>
                 <div className="flex items-center gap-2">
                     <Indicator label="Active" state="active" variant="neutral" />
-                    <span className="text-sm">Active (pulsing)</span>
+                    <span className="text-sm">Active (spinning)</span>
                 </div>
                 <div className="flex items-center gap-2">
                     <Indicator label="Inactive" state="inactive" variant="neutral" />
@@ -191,7 +191,7 @@ export const AllStates: Story = {
                 </div>
                 <div className="flex items-center gap-2">
                     <Indicator label="Active" state="active" variant="success" />
-                    <span className="text-sm">Active (pulsing)</span>
+                    <span className="text-sm">Active (spinning)</span>
                 </div>
                 <div className="flex items-center gap-2">
                     <Indicator label="Inactive" state="inactive" variant="success" />
@@ -205,7 +205,7 @@ export const AllStates: Story = {
                 </div>
                 <div className="flex items-center gap-2">
                     <Indicator label="Active" state="active" variant="error" />
-                    <span className="text-sm">Active (pulsing)</span>
+                    <span className="text-sm">Active (spinning)</span>
                 </div>
                 <div className="flex items-center gap-2">
                     <Indicator label="Inactive" state="inactive" variant="error" />
@@ -219,7 +219,7 @@ export const AllStates: Story = {
                 </div>
                 <div className="flex items-center gap-2">
                     <Indicator label="Active" state="active" variant="warning" />
-                    <span className="text-sm">Active (pulsing)</span>
+                    <span className="text-sm">Active (spinning)</span>
                 </div>
                 <div className="flex items-center gap-2">
                     <Indicator label="Inactive" state="inactive" variant="warning" />
@@ -254,7 +254,7 @@ export const InContext: Story = {
         <div className="space-y-4">
             <div className="flex items-center gap-2 text-sm">
                 <span>Connected to Stripe</span>
-                <Indicator label="Connected" size="sm" state="idle" variant="success" />
+                <Indicator size="sm" state="idle" variant="success" />
             </div>
             <div className="flex items-center gap-2 text-sm">
                 <span>Database error</span>
