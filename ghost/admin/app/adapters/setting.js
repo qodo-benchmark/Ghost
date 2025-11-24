@@ -23,6 +23,12 @@ export default class Setting extends ApplicationAdapter {
 
         // use the ApplicationAdapter's buildURL method but do not
         // pass in an id.
-        return this.ajax(this.buildURL(type.modelName), 'PUT', {data});
+        return this.ajax(this.buildURL(type.modelName), 'PUT', {data}).then((response) => {
+            // Notify React that settings have been updated so it can invalidate its cache
+            if (this.stateBridge) {
+                this.stateBridge.triggerEmberDataChange('update', type.modelName, record.id, response);
+            }
+            return response;
+        });
     }
 }
