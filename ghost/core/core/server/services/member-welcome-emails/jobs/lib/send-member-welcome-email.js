@@ -17,7 +17,7 @@ async function sendMemberWelcomeEmail({payload, mailConfig}) {
     const name = payload?.name ? `${payload.name} at ` : '';
     logging.info(`${MEMBER_WELCOME_EMAIL_LOG_KEY} Sending welcome email to ${name}${payload?.email}`);
     const templateData = {
-        memberName: payload.name,
+        memberName: payload?.name,
         siteTitle: mailConfig.siteSettings.title,
         siteUrl: mailConfig.siteSettings.url,
         accentColor: mailConfig.siteSettings.accentColor

