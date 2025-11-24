@@ -48,6 +48,6 @@ export const isoDatetimeToDate = z.codec(
     z.date(),
     {
         decode: (isoString) => new Date(isoString),
-        encode: (date) => date.toISOString(),
+        encode: (date) => date.toJSON(),
     }
 );
