@@ -124,11 +124,12 @@ class EmailService {
 
         const emailRecipientFilter = post.get('email_recipient_filter');
         const emailCount = await this.#emailSegmenter.getMembersCount(newsletter, emailRecipientFilter);
-        await this.checkLimits(emailCount);
 
         const csdEmailCount = this.#domainWarmingService.isEnabled()
             ? await this.#domainWarmingService.getWarmupLimit(emailCount)
             : undefined; // Undefined here means domain warming was not used -- distinct from 0
+
+        await this.checkLimits(emailCount);
 
         const email = await this.#models.Email.add({
             post_id: post.id,

