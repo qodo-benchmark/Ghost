@@ -37,6 +37,7 @@ export class LoginPage extends AdminPage {
 
     async logout() {
         await this.page.goto('/ghost/#/signout');
+        await this.page.waitForLoadState('load');
     }
 
     async waitForLoginPageAfterUserCreated(): Promise<void> {

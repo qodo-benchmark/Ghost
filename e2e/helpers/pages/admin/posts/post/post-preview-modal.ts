@@ -37,7 +37,7 @@ export class PostPreviewModal {
 
     async switchToEmailTab(): Promise<void> {
         await this.emailTabButton.click();
-        await this.emailPreviewFrameBody.waitFor({state: 'visible'});
+        await this.emailPreviewFrameBody.waitFor({state: 'attached'});
     }
 
     async content(): Promise<string | null> {

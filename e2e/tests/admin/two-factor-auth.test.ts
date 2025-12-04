@@ -18,6 +18,7 @@ test.describe('Two-Factor authentication', () => {
 
     test.beforeEach(async ({page}) => {
         const loginPage = new LoginPage(page);
+        await loginPage.logout();
         await loginPage.goto();
     });
 
@@ -66,7 +67,7 @@ test.describe('Two-Factor authentication', () => {
 
             expect(messages.length).toBe(2);
 
-            const code = parseCodeFromMessageSubject(messages[0]);
+            const code = parseCodeFromMessageSubject(messages[1]);
             await verifyPage.twoFactorTokenField.fill(code);
             await verifyPage.twoFactorVerifyButton.click();
 
