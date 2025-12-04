@@ -61,7 +61,7 @@ test.describe('Ghost Public - Member Signup', () => {
         await publicPage.goto(magicLink);
         await homePage.waitUntilLoaded();
 
-        latestMessage = await retrieveLatestEmailMessage(emailInbox);
+        latestMessage = await retrieveLatestEmailMessage(emailAddress);
 
         expect(latestMessage.From.Name).toContain('Ghost');
         expect(latestMessage.From.Address).toContain('test@example.com');

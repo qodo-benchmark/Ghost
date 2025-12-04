@@ -74,8 +74,8 @@ export class GhostManager {
                 // other services configuration
                 portal__url: config.portalUrl || `http://localhost:${PORTAL.PORT}/portal.min.js`,
                 // Use React admin shell if specified
-                ...(process.env.USE_REACT_SHELL === 'true' ? {USE_REACT_SHELL: 'true'} : {}),
-                ...(config.config ? config.config : {})
+                ...(config.config ? config.config : {}),
+                ...(process.env.USE_REACT_SHELL === 'true' ? {USE_REACT_SHELL: 'true'} : {})
             } as Record<string, string>;
 
             const containerConfig: ContainerCreateOptions = {
