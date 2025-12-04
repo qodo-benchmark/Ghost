@@ -138,7 +138,6 @@
           "command": "trap 'docker compose -f compose.dev.yaml ${DEV_COMPOSE_FILES} down' EXIT; docker compose -f compose.dev.yaml ${DEV_COMPOSE_FILES} logs -f"
         },
         "dependsOn": [
-          "docker:up",
           {
             "target": "dev",
             "projects": [
@@ -149,7 +148,8 @@
               "@tryghost/sodo-search",
               "@tryghost/announcement-bar"
             ]
-          }
+          },
+          "docker:up"
         ]
       }
     }

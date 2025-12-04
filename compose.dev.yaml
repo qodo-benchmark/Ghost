@@ -84,12 +84,12 @@ services:
       adapters__cache__Redis__port: 6379
       # Public app assets - proxied through Caddy gateway to host dev servers
       # Using /ghost/assets/* paths
-      portal__url: /ghost/assets/portal/portal.min.js
-      comments__url: /ghost/assets/comments-ui/comments-ui.min.js
-      sodoSearch__url: /ghost/assets/sodo-search/sodo-search.min.js
+      portal__url: /ghost/assets/portal/portal.js
+      comments__url: /ghost/assets/comments-ui/comments-ui.js
+      sodoSearch__url: /ghost/assets/sodo-search/sodo-search.js
       sodoSearch__styles: /ghost/assets/sodo-search/main.css
-      signupForm__url: /ghost/assets/signup-form/signup-form.min.js
-      announcementBar__url: /ghost/assets/announcement-bar/announcement-bar.min.js
+      signupForm__url: /ghost/assets/signup-form/signup-form.js
+      announcementBar__url: /ghost/assets/announcement-bar/announcement-bar.js
     depends_on:
       mysql:
         condition: service_healthy

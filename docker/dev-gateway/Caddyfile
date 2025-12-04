@@ -119,12 +119,11 @@
     # This includes /ghost/, etc. (but /ghost/assets/* is handled above)
     # Also handles WebSocket upgrade requests for live reload
     handle /ghost/* {
-        reverse_proxy {env.ADMIN_DEV_SERVER} {
-            header_up Host {http.reverse_proxy.upstream.hostport}
-            header_up X-Forwarded-Host {host}
-            # Enable WebSocket support
-            header_up Connection {>Connection}
-            header_up Upgrade {>Upgrade}
+        reverse_proxy {env.GHOST_BACKEND} {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto https
         }
     }
 
