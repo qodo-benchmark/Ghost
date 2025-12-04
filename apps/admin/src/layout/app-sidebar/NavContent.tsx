@@ -68,9 +68,9 @@ function NavContent({ ...props }: React.ComponentProps<typeof SidebarGroup>) {
                     {/* Posts submenu */}
                     <NavSubMenu isExpanded={postsExpanded} id="posts-submenu">
                         <NavMenuItem>
-                            <NavMenuItem.Link 
-                                className="pl-9" 
-                                to="posts?type=draft"
+                            <NavMenuItem.Link
+                                className="pl-9"
+                                to={routing.getRouteUrl('posts', {type: 'draft'})}
                                 isActive={routing.isRouteActive('posts', {type: 'draft'})}
                             >
                                 <NavMenuItem.Label>Drafts</NavMenuItem.Label>
@@ -78,9 +78,9 @@ function NavContent({ ...props }: React.ComponentProps<typeof SidebarGroup>) {
                         </NavMenuItem>
 
                         <NavMenuItem>
-                            <NavMenuItem.Link 
-                                className="pl-9" 
-                                to="posts?type=scheduled"
+                            <NavMenuItem.Link
+                                className="pl-9"
+                                to={routing.getRouteUrl('posts', {type: 'scheduled'})}
                                 isActive={routing.isRouteActive('posts', {type: 'scheduled'})}
                             >
                                 <NavMenuItem.Label>Scheduled</NavMenuItem.Label>
@@ -88,9 +88,9 @@ function NavContent({ ...props }: React.ComponentProps<typeof SidebarGroup>) {
                         </NavMenuItem>
 
                         <NavMenuItem>
-                            <NavMenuItem.Link 
-                                className="pl-9" 
-                                to="posts?type=published"
+                            <NavMenuItem.Link
+                                className="pl-9"
+                                to={routing.getRouteUrl('posts', {type: 'published'})}
                                 isActive={routing.isRouteActive('posts', {type: 'published'})}
                             >
                                 <NavMenuItem.Label>Published</NavMenuItem.Label>

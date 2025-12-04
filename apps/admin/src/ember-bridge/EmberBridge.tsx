@@ -267,16 +267,21 @@ export function useEmberRouting(): EmberRouting {
                     setBridge(stateBridge);
                 }
             });
-            return;
         }
-        
+
         // Subscribe to route changes to force re-renders
         const handleRouteChange = () => {
             forceUpdate(n => n + 1);
         };
-        
-        bridge.on('routeChange', handleRouteChange);
-        return () => bridge.off('routeChange', handleRouteChange);
+
+        if (bridge) {
+            bridge.on('routeChange', handleRouteChange);
+        }
+        return () => {
+            if (bridge) {
+                bridge.off('routeChange', handleRouteChange);
+            }
+        };
     }, [bridge]);
 
     // Return default no-op routing until bridge is available

