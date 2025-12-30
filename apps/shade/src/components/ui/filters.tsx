@@ -1942,8 +1942,10 @@ export function Filters<T = unknown>({
 
     // Notify parent when active field changes
     useEffect(() => {
-        onActiveFieldChange?.(selectedFieldKeyForOptions);
-    }, [selectedFieldKeyForOptions, onActiveFieldChange]);
+        if (addFilterOpen) {
+            onActiveFieldChange?.(selectedFieldKeyForOptions);
+        }
+    }, [selectedFieldKeyForOptions, onActiveFieldChange, addFilterOpen]);
 
     // Keyboard shortcut handler
     useEffect(() => {

