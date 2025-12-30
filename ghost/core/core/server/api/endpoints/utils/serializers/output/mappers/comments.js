@@ -35,6 +35,7 @@ const postFields = [
     'id',
     'uuid',
     'title',
+    'slug',
     'url',
     'feature_image'
 ];
