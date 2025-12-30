@@ -87,6 +87,7 @@ export class CommentsSection {
         await comment.getByRole('button', {name: 'Reply'}).click();
         await this.commentsFrame.getByTestId('reply-form').getByTestId('editor').fill(replyText);
         await this.addReplyButton.click();
+        await this.comments.first().waitFor({state: 'visible', timeout: 10000});
     }
 
     async likeComment(text: string): Promise<void> {

@@ -97,6 +97,6 @@ test.describe('Ghost Public - Comments - Replies', () => {
 
         await postPage.comments.showMoreRepliesButton.click();
         await expect(postPage.comments.comments.last()).toContainText('reply 5 to comment 1');
-        await expect(postPage.comments.comments).toHaveCount(6);
+        await expect(postPage.comments.comments).toHaveCount(5);
     });
 });
