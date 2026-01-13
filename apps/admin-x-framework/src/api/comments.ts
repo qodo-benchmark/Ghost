@@ -69,7 +69,7 @@ export const useBrowseComments = (args?: Parameters<typeof useBrowseCommentsQuer
         searchParams: {
             limit: '100',
             order: 'created_at desc',
-            include: 'member,post',
+            include: 'member,post,post.feature_image',
             ...args?.searchParams
         }
     });
