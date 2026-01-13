@@ -62,6 +62,7 @@ export function useScrollRestoration({parentRef, enabled = true, isLoading = fal
         const savedPosition = scrollPositions.get(key);
 
         if (!enabled || !scrollContainer || isLoading) {
+            previousPathRef.current = key;
             return;
         }
 
