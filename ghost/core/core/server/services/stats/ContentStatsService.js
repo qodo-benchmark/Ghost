@@ -79,7 +79,8 @@ class ContentStatsService {
             dateTo: options.date_to,
             timezone: options.timezone,
             memberStatus: options.member_status,
-            postType: options.post_type
+            postType: options.post_type,
+            device: options.device
         };
 
         // Only add post_uuid if defined
@@ -90,11 +91,6 @@ class ContentStatsService {
         // Only add pathname if defined
         if (options.pathname) {
             tinybirdOptions.pathname = options.pathname;
-        }
-
-        // Only add device if defined
-        if (options.device) {
-            tinybirdOptions.device = options.device;
         }
 
         // Only add location if defined
