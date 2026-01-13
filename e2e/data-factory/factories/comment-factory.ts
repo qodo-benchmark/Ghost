@@ -24,7 +24,7 @@ export class CommentFactory extends Factory<Partial<Comment>, Comment> {
             id: generateId(),
             post_id: options.post_id || '',
             member_id: options.member_id || '',
-            status: 'published',
+            status: options.status || 'published',
             html: content,
             ...options
         };

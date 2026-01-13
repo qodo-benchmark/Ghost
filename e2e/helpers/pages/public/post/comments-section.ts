@@ -83,13 +83,13 @@ export class CommentsSection {
     }
 
     async replyToComment(commentText: string, replyText: string): Promise<void> {
-        const comment = this.getCommentByText(commentText).locator('../..');
+        const comment = this.getCommentByText(commentText).locator('..');
         await comment.getByRole('button', {name: 'Reply'}).click();
         await this.commentsFrame.getByTestId('reply-form').getByTestId('editor').fill(replyText);
         await this.addReplyButton.click();
     }
 
     async likeComment(text: string): Promise<void> {
-        await this.getCommentByText(text).getByTestId('like-button').click();
+        await this.getCommentByText(text).locator('..').getByTestId('like-button').click();
     }
 }
