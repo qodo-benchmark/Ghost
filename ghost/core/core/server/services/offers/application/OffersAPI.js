@@ -158,6 +158,7 @@ class OffersAPI {
 
             try {
                 await this.repository.save(offer, txOptions);
+                return OfferMapper.toDTO(offer);
             } catch (err) {
                 // Handle race condition: another request may have created the offer
                 // between the check and save. If so, return the existing offer.
@@ -176,8 +177,6 @@ class OffersAPI {
                 }
                 throw err;
             }
-
-            return OfferMapper.toDTO(offer);
         };
 
         if (options.transacting) {

