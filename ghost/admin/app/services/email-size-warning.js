@@ -34,7 +34,7 @@ export default class EmailSizeWarningService extends Service {
      */
     fetchEmailSize(post) {
         if (!post?.id || post.isNew) {
-            return Promise.resolve({overLimit: null, emailSizeKb: null});
+            return Promise.resolve({overLimit: false, emailSizeKb: null});
         }
 
         const postId = post.id;

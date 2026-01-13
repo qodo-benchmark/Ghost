@@ -38,6 +38,6 @@ export default class EmailSizeWarningComponent extends Component {
     *checkEmailSizeTask() {
         const result = yield this.emailSizeWarning.fetchEmailSize(this.args.post);
         this.overLimit = result.overLimit;
-        this.emailSizeKb = result.emailSizeKb;
+        this.emailSizeKb = result.emailSizeKb || 0;
     }
 }
