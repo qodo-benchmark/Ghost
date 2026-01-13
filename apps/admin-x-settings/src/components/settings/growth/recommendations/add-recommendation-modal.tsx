@@ -17,6 +17,10 @@ const doFormatUrl = (url: string) => {
 };
 
 const validateUrl = function (errors: ErrorMessages, url: string) {
+    if (!url) {
+        errors.url = 'Enter a valid URL';
+        return errors;
+    }
     try {
         const u = new URL(url);
 

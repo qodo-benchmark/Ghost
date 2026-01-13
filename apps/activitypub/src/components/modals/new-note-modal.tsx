@@ -99,6 +99,7 @@ const NewNoteModal: React.FC<NewNoteModalProps> = ({children, replyTo, onReply, 
             }
             // Handle error case if needed
             // console.error('Failed to create post:', error);
+            toast.error('Failed to post');
         } finally {
             setIsPosting(false);
         }
