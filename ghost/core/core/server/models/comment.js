@@ -283,7 +283,8 @@ const Comment = ghostBookshelf.Model.extend({
             'replies.member',
             'replies.inReplyTo',
             'replies.count.likes',
-            'replies.count.liked'
+            'replies.count.liked',
+            'replies.count.reports'
         ].filter(relation => (withRelated.includes(relation) || withRelated.some(r => typeof r === 'object' && r[relation])));
 
         this.applyRepliesWithRelatedOption(relationsToLoadIndividually, options.isAdmin);
