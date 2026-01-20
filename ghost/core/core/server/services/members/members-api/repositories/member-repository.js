@@ -1059,6 +1059,7 @@ module.exports = class MemberRepository {
                     // For example, a `yearly` coupon set to `repeating` (Ghost only accepts `once` or `forever` for `yearly` coupons).
                     //
                     // In this case, we skip creating the offer, but still create the paid member
+                    console.log(`Skipping offer creation for coupon: ${stripeCouponId}`);
                     logging.error(`Failed to create offer for Stripe coupon - ${stripeCouponId}`);
                     logging.error(e);
                 } else {
