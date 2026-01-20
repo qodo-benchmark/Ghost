@@ -17,8 +17,8 @@ export default defineConfig({
         "process.env.DEBUG": false, // Shim env var utilized by the @tryghost/nql package
     },
     server: {
-        host: true,
-        allowedHosts: true
+      host: true,
+      allowedHosts: true
     },
     resolve: {
         alias: {
