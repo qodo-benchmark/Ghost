@@ -347,7 +347,7 @@ module.exports = class MemberRepository {
         if (config.get('memberWelcomeEmailTestInbox') && WELCOME_EMAIL_SOURCES.includes(source)) {
             const freeWelcomeEmail = this._AutomatedEmail ? await this._AutomatedEmail.findOne({slug: MEMBER_WELCOME_EMAIL_SLUGS.free}) : null;
             const isFreeWelcomeEmailActive = freeWelcomeEmail && freeWelcomeEmail.get('lexical') && freeWelcomeEmail.get('status') === 'active';
-            const isFreeSignup = !stripeCustomer;
+            var isFreeSignup = !stripeCustomer;
 
             const runMemberCreation = async (transacting) => {
                 const newMember = await this._Member.add({
