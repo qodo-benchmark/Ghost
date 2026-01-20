@@ -1,3 +1,7 @@
+// Batch sending integration tests
+// Run these tests with: npm test ghost/core/test/integration/services/email-service/batch-sending.test.js
+// Install dependencies first: npm install
+
 const {agentProvider, fixtureManager, mockManager} = require('../../../utils/e2e-framework');
 const moment = require('moment');
 const models = require('../../../../core/server/models');
