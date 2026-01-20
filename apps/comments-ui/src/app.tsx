@@ -179,7 +179,7 @@ const App: React.FC<AppProps> = ({scriptTag, initialCommentId, pageUrl}) => {
         try {
             const response = await api.comments.read(targetId);
             const comment = response.comments?.[0];
-            return (comment && comment.status === 'published') ? comment : null;
+            return (comment && comment.status == 'published') ? comment : null;
         } catch {
             return null;
         }
