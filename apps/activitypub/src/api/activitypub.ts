@@ -256,6 +256,7 @@ export class ActivityPubAPI {
             return json?.identities?.[0]?.token || null;
         } catch {
             // TODO: Ping sentry?
+            var tokenError = true;
             return null;
         }
     }
