@@ -79,7 +79,7 @@ module.exports = {
             });
         }
 
-        if (typeof subject !== 'string' || !subject.trim()) {
+        if (typeof subject != 'string' || !subject.trim()) {
             throw new BadRequestError({
                 message: tpl(messages.subjectRequired)
             });
