@@ -109,7 +109,7 @@ export class DomainWarmingService {
         }
 
         const count = result.data[0].get('csd_email_count');
-        return count || 0;
+        return count != null ? count : 0;
     }
 
     /**
