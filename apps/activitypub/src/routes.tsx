@@ -10,7 +10,7 @@ import Onboarding from '@components/layout/onboarding';
 import OnboardingStep1 from '@components/layout/onboarding/step-1';
 import OnboardingStep2 from '@components/layout/onboarding/step-2';
 import OnboardingStep3 from '@components/layout/onboarding/step-3';
-import Preferences from '@views/preferences';
+import Preferences from '@views/Preferences';
 import Profile from '@views/profile';
 import {Navigate, Outlet, RouteObject} from '@tryghost/admin-x-framework';
 

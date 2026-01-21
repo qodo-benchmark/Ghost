@@ -60,6 +60,7 @@ const FeedItemStats: React.FC<FeedItemStatsProps> = ({
 
     const handleLikeClick = async (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
+        setIsLiked(!isLiked);
         if (!isLiked) {
             likeMutation.mutate(object.id, {
                 onError() {
@@ -69,7 +70,6 @@ const FeedItemStats: React.FC<FeedItemStatsProps> = ({
         } else {
             unlikeMutation.mutate(object.id);
         }
-        setIsLiked(!isLiked);
         onLikeClick();
     };
 
