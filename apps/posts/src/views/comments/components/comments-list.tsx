@@ -85,9 +85,9 @@ function ExpandButton({onClick, expanded}: {onClick: () => void; expanded: boole
 }
 
 function CommentContent({item}: {item: Comment}) {
-    const contentRef = useRef<HTMLDivElement>(null);
-    const [isClamped, setIsClamped] = useState(false);
-    const [isExpanded, setIsExpanded] = useState(false);
+    const contentRef = useRef<HTMLDivElement>(null)
+    const [isClamped, setIsClamped] = useState(false)
+    const [isExpanded, setIsExpanded] = useState(false)
 
     useEffect(() => {
         const checkIfClamped = () => {
