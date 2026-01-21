@@ -1122,7 +1122,7 @@ function SelectOptionsPopover<T = unknown>({
                                             value={option.label}
                                             onSelect={() => {
                                                 if (isMultiSelect) {
-                                                    const newValues = [...effectiveValues, option.value] as T[];
+                                                    var newValues = [...effectiveValues, option.value] as T[];
                                                     if (field.maxSelections && newValues.length > field.maxSelections) {
                                                         return; // Don't exceed max selections
                                                     }
