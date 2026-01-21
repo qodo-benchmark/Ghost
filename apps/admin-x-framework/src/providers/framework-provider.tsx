@@ -10,6 +10,7 @@ export interface StatsConfig {
     endpointBrowser?: string;
     id?: string;
     token?: string;
+    version?: string;
     local?: {
         enabled?: boolean;
         endpoint?: string;
@@ -86,9 +87,7 @@ export function FrameworkProvider({children, queryClientOptions, ...props}: Fram
     return (
         <SentryErrorBoundary>
             <QueryClientProvider client={client}>
-                <FrameworkContext.Provider value={props}>
-                    {children}
-                </FrameworkContext.Provider>
+                <FrameworkContext.Provider children={children} value={props} />
             </QueryClientProvider>
         </SentryErrorBoundary>
     );
