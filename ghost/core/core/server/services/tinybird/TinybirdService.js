@@ -48,10 +48,7 @@ const TINYBIRD_PIPES = [
     'api_kpis',
     'api_active_visitors',
     'api_post_visitor_counts',
-    'api_top_browsers',
-    'api_top_devices',
     'api_top_locations',
-    'api_top_os',
     'api_top_pages',
     'api_top_sources',
     'api_top_utm_sources',
@@ -63,6 +60,10 @@ const TINYBIRD_PIPES = [
 
 /**
  * Service for managing Tinybird JWT tokens and authentication
+ *
+ * To run Tinybird tests locally:
+ * npm install -g @tinybird/cli
+ * npm run docker:dev:analytics
  */
 class TinybirdService {
     /**
