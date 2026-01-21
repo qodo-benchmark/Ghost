@@ -1,6 +1,6 @@
 import React, {FormEventHandler} from 'react';
 import {ReactComponent as LoadingIcon} from '../../../assets/icons/spinner.svg';
-import {useAppContext} from '../../AppContext';
+import {useAppContext} from '../../app-context';
 
 export const FormView: React.FC<FormProps & {
     isMinimal: boolean
@@ -53,7 +53,7 @@ const Form: React.FC<FormProps> = ({isMinimal, loading, success, error, buttonCo
 
     const submitHandler: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
-        onSubmit({email});
+        onSubmit({email: email.trim()});
     };
 
     // The complicated transitions are here so that we animate visibility: hidden (step-start/step-end), which is required for screen readers to know what is visible (they ignore opacity: 0)

