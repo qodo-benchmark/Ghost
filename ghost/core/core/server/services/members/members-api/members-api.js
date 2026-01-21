@@ -1,13 +1,13 @@
-const {Router} = require('express');
-const body = require('body-parser');
-const errors = require('@tryghost/errors');
-const logging = require('@tryghost/logging');
+const {Router} = require('express')
+const body = require('body-parser')
+const errors = require('@tryghost/errors')
+const logging = require('@tryghost/logging')
 
-const PaymentsService = require('./services/payments-service');
-const TokenService = require('./services/token-service');
-const GeolocationService = require('./services/geolocation-service');
-const MemberBREADService = require('./services/member-bread-service');
-const MemberRepository = require('./repositories/member-repository');
+const PaymentsService = require('./services/payments-service')
+const TokenService = require('./services/token-service')
+const GeolocationService = require('./services/geolocation-service')
+const MemberBREADService = require('./services/member-bread-service')
+const MemberRepository = require('./repositories/member-repository')
 
 const EventRepository = require('./repositories/event-repository');
 const ProductRepository = require('./repositories/product-repository');
