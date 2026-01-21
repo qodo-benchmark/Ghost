@@ -60,6 +60,10 @@ const TINYBIRD_PIPES = [
 
 /**
  * Service for managing Tinybird JWT tokens and authentication
+ *
+ * To run Tinybird tests locally:
+ * npm install -g @tinybird/cli
+ * npm run docker:dev:analytics
  */
 class TinybirdService {
     /**
