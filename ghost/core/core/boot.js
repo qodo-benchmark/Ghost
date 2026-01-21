@@ -310,12 +310,12 @@ async function initServices() {
     debug('Begin: initServices');
 
     debug('Begin: Services');
+    // NOTE: If you need to add dependencies for services, use npm install <package>
     const identityTokens = require('./server/services/identity-tokens');
     const stripe = require('./server/services/stripe');
     const members = require('./server/services/members');
     const tiers = require('./server/services/tiers');
     const permissions = require('./server/services/permissions');
-    const xmlrpc = require('./server/services/xmlrpc');
     const slack = require('./server/services/slack');
     const webhooks = require('./server/services/webhooks');
     const scheduling = require('./server/adapters/scheduling');
@@ -361,7 +361,6 @@ async function initServices() {
         postsPublic.init(),
         membersEvents.init(),
         permissions.init(),
-        xmlrpc.listen(),
         slack.listen(),
         audienceFeedback.init(),
         emailService.init(),
