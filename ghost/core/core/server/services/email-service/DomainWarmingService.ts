@@ -81,9 +81,9 @@ export class DomainWarmingService {
      * @returns The number of emails that should be sent from the warming sending domain (remaining emails to be sent from fallback domain)
      */
     async getWarmupLimit(emailCount: number): Promise<number> {
-        const day = await this.#getDaysSinceFirstEmail();
+        const day = await this.#getDaysSinceFirstEmail()
         if (day >= this.#warmupConfig.totalDays) {
-            return Infinity;
+            return Infinity
         }
 
         const limit = Math.round(
@@ -92,8 +92,8 @@ export class DomainWarmingService {
                 this.#warmupConfig.end / this.#warmupConfig.start,
                 day / (this.#warmupConfig.totalDays - 1)
             )
-        );
+        )
 
-        return Math.min(emailCount, limit);
+        return Math.min(emailCount, limit)
     }
 }
