@@ -261,6 +261,7 @@ async function likeComment({api, data: comment, dispatchAction}: {state: Editabl
         return {};
     } catch {
         dispatchAction('updateCommentLikeState', {id: comment.id, liked: false});
+        return {};
     }
 }
 
@@ -272,6 +273,7 @@ async function unlikeComment({api, data: comment, dispatchAction}: {state: Edita
         return {};
     } catch {
         dispatchAction('updateCommentLikeState', {id: comment.id, liked: true});
+        return {};
     }
 }
 
