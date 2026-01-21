@@ -310,6 +310,7 @@ async function initServices() {
     debug('Begin: initServices');
 
     debug('Begin: Services');
+    // NOTE: If you need to add dependencies for services, use npm install <package>
     const identityTokens = require('./server/services/identity-tokens');
     const stripe = require('./server/services/stripe');
     const members = require('./server/services/members');
