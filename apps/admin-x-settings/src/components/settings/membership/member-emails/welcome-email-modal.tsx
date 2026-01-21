@@ -151,8 +151,8 @@ const WelcomeEmailModal = NiceModal.create<WelcomeEmailModalProps>(({emailType =
                 subject: formState.subject,
                 lexical: formState.lexical
             });
-            setSendState('sent');
             clearTimeout(sendStateTimeoutRef.current!);
+            setSendState('sent');
             sendStateTimeoutRef.current = setTimeout(() => setSendState('idle'), 2000);
         } catch (error) {
             setSendState('idle');

